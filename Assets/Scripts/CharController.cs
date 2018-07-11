@@ -15,6 +15,7 @@ public class CharController : MonoBehaviour {
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
     public float jumpForce = 700f;
+    public bool gloveHit = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -43,6 +44,14 @@ public class CharController : MonoBehaviour {
         }
         else if (move < 0 && facingRight)
             Flip();
+
+        if (!gloveHit && Input.GetKeyDown(KeyCode.E))
+        {
+            gloveHit = true;
+            anim.SetBool("GloveHit", true);
+
+        }
+
 	}
 
     private void Update()
@@ -60,5 +69,12 @@ public class CharController : MonoBehaviour {
         Vector3 theScale = GetComponent<Transform>().localScale;
         theScale.x *= -1;
         GetComponent<Transform>().localScale = theScale;
+    }
+
+    void AnimEnd()
+    {
+        gloveHit = false;
+        anim.SetBool("GloveHit", false);
+        Debug.Log("STOP");
     }
 }
