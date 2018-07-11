@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699d5be8e2c1cd541afb3d9cf03d81c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 6
   groundCheck: {fileID: 1501229080}
   whatIsGround:
     serializedVersion: 2
