@@ -51,13 +51,13 @@ public class CharController : MonoBehaviour {
 
     private void Update()
     {
-        if(grounded && Input.GetKeyDown(KeyCode.Space))
+        if(grounded && Input.GetButtonDown("Jump"))
         {
             anim.SetBool("Ground", false);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
         }
 
-        if (!gloveHit && Input.GetKeyDown(KeyCode.E))
+        if (!gloveHit && Input.GetButtonDown("Fire1"))
         {
             gloveHit = true;
             anim.SetBool("GloveHit", true);
