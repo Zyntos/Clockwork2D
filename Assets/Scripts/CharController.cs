@@ -45,12 +45,7 @@ public class CharController : MonoBehaviour {
         else if (move < 0 && facingRight)
             Flip();
 
-        if (!gloveHit && Input.GetKeyDown(KeyCode.E))
-        {
-            gloveHit = true;
-            anim.SetBool("GloveHit", true);
-
-        }
+       
 
 	}
 
@@ -60,6 +55,13 @@ public class CharController : MonoBehaviour {
         {
             anim.SetBool("Ground", false);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+        }
+
+        if (!gloveHit && Input.GetKeyDown(KeyCode.E))
+        {
+            gloveHit = true;
+            anim.SetBool("GloveHit", true);
+
         }
     }
 
