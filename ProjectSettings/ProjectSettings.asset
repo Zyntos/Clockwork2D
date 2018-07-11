@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 14
-  productGUID: cc40addec2c31744da10469a00218a41
+  productGUID: a32b40adbf2d54246bebc7f34dfe1611
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
@@ -630,11 +630,12 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: d756b36b-2522-40e6-ba02-53227b69dc8e
-  projectName: Clockwork2D
+  cloudProjectId: 950fa6e5-ecdb-4b81-982d-f9997a09da75
+  projectName: Clockwork2D (2)
   organizationId: zyntos
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
