@@ -16,9 +16,10 @@ public class CharController : MonoBehaviour {
     public LayerMask whatIsGround;
     public float jumpForce = 700f;
     public bool gloveHit = false;
+    float move;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
         anim = GetComponent<Animator>();
 	}
 	
@@ -31,8 +32,11 @@ public class CharController : MonoBehaviour {
 
         anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
 
-
-        float move = Input.GetAxis("Horizontal");
+        if (!gloveHit)
+        {
+            move = Input.GetAxis("Horizontal");
+        }
+        
 
         anim.SetFloat("Speed", Mathf.Abs(move));
 
@@ -51,14 +55,15 @@ public class CharController : MonoBehaviour {
 
     private void Update()
     {
-        if(grounded && Input.GetButtonDown("Jump"))
+        if(grounded && Input.GetButtonDown("Jump") && !gloveHit)
         {
             anim.SetBool("Ground", false);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
         }
 
-        if (!gloveHit && Input.GetButtonDown("Fire1"))
+        if (!gloveHit && Input.GetButtonDown("Fire1") && grounded)
         {
+            move = 0;
             gloveHit = true;
             anim.SetBool("GloveHit", true);
 
