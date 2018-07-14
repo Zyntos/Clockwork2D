@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GloveHit : MonoBehaviour {
 
-    GameObject collisionObj;
-    public bool canHit;
+    public List<GameObject> collisionObj;
     public LayerMask hittable;
     public Transform glove;
 
@@ -21,11 +20,27 @@ public class GloveHit : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        canHit = Physics2D.OverlapCircle(glove.position, glove.GetComponent<CircleCollider2D>().radius*2, hittable);
+
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        collisionObj = collision.gameObject;
+
+        if (((1 << collision.gameObject.layer) & hittable) != 0)
+            if (!collisionObj.Contains(collision.gameObject))
+            {
+                collisionObj.Add(collision.gameObject);
+            }
+            
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collisionObj.Contains(collision.gameObject))
+        {
+            collisionObj.Remove(collision.gameObject);
+        }
+    }
+
+
 }
