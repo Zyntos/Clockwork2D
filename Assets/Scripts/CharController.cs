@@ -11,6 +11,7 @@ public class CharController : MonoBehaviour
     bool isInvin = false;
     bool lefthit;
     bool righthit;
+    
 
     Animator anim;
 
@@ -66,6 +67,7 @@ public class CharController : MonoBehaviour
             {
                 anim.SetBool("Evade", true);
                 evading = true;
+                
             }
         }
 
@@ -79,7 +81,7 @@ public class CharController : MonoBehaviour
 
     private void Update()
     {
-        if (grounded && Input.GetButtonDown("Jump") && !gloveHit && !isInvin)
+        if (grounded && Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading)
         {
             anim.SetBool("Ground", false);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
@@ -87,7 +89,14 @@ public class CharController : MonoBehaviour
 
         if (!gloveHit && Input.GetButtonDown("Fire1") && grounded && !isInvin && !evading)
         {
-
+            if(facingRight && Input.GetAxis("Horizontal") < 0)
+            {
+                Flip();
+            }
+            if(!facingRight && Input.GetAxis("Horizontal") > 0)
+            {
+                Flip();
+            }
             Debug.Log("GLOVE");
             gloveHit = true;
             anim.SetBool("GloveHit", true);
@@ -189,5 +198,7 @@ public class CharController : MonoBehaviour
         anim.SetBool("Evade", false);
         evading = false;
     }
+
+   
 
 }
