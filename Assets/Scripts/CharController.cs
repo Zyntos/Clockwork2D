@@ -24,6 +24,7 @@ public class CharController : MonoBehaviour
     public LayerMask whatisEnemy;
     public Material invincibleFrame;
     public Material standardMat;
+    public bool evading = false;
 
 
     // Use this for initialization
@@ -42,7 +43,7 @@ public class CharController : MonoBehaviour
 
         anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
 
-        if (!gloveHit && !isInvin)
+        if (!gloveHit && !isInvin && !evading)
         {
             move = Input.GetAxis("Horizontal");
         }
@@ -59,7 +60,20 @@ public class CharController : MonoBehaviour
         else if (move < 0 && facingRight)
             Flip();
 
+        if(move != 0)
+        {
+            if(Input.GetAxis("Vertical") < 0 && anim.GetFloat("vSpeed") == 0)
+            {
+                anim.SetBool("Evade", true);
+                evading = true;
+            }
+        }
 
+        if(anim.GetFloat("vSpeed") != 0)
+        {
+            anim.SetBool("Evade", false);
+            evading = false;
+        }
 
     }
 
@@ -71,12 +85,13 @@ public class CharController : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
         }
 
-        if (!gloveHit && Input.GetButtonDown("Fire1") && grounded && !isInvin)
+        if (!gloveHit && Input.GetButtonDown("Fire1") && grounded && !isInvin && !evading)
         {
-            move = 0;
+
+            Debug.Log("GLOVE");
             gloveHit = true;
             anim.SetBool("GloveHit", true);
-
+            move = 0;
         }
     }
 
@@ -130,9 +145,10 @@ public class CharController : MonoBehaviour
             }
 
             //DOSomething
-            anim.SetBool("GetHit", true);
+            if (!evading) { 
+                anim.SetBool("GetHit", true);
+            }
 
-          
         }
 
         
@@ -166,6 +182,12 @@ public class CharController : MonoBehaviour
         GetComponent<SpriteRenderer>().material = standardMat;
         isInvin = false;
         
+    }
+
+    private void StopEvade()
+    {
+        anim.SetBool("Evade", false);
+        evading = false;
     }
 
 }
