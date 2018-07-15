@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699d5be8e2c1cd541afb3d9cf03d81c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glovedamage: 20
   maxSpeed: 6
   groundCheck: {fileID: 1501229080}
   whatIsGround:
@@ -298,6 +299,7 @@ MonoBehaviour:
   invincibleFrame: {fileID: 2100000, guid: eef2a10814a021741bc9eabe69d53eb2, type: 2}
   standardMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   evading: 0
+  glove: {fileID: 1435557448}
 --- !u!1 &1050406908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1858,7 @@ GameObject:
   - component: {fileID: 2052225875}
   - component: {fileID: 2052225876}
   - component: {fileID: 2052225877}
+  - component: {fileID: 2052225878}
   m_Layer: 9
   m_Name: Dummy
   m_TagString: Untagged
@@ -1947,3 +1950,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9470148, y: 2.4597597}
   m_EdgeRadius: 0
+--- !u!114 &2052225878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2052225874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8279cc6146d789c4fadf6e1dbe2f22da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxlife: 100
+  life: 0

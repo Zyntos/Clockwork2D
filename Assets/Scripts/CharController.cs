@@ -6,6 +6,12 @@ public class CharController : MonoBehaviour
 {
 
 
+
+    public float glovedamage = 50;
+   
+
+
+
     public float maxSpeed = 10f;
     bool facingRight = true;
     bool isInvin = false;
@@ -26,6 +32,8 @@ public class CharController : MonoBehaviour
     public Material invincibleFrame;
     public Material standardMat;
     public bool evading = false;
+
+    public GameObject glove;
 
 
     // Use this for initialization
@@ -101,6 +109,11 @@ public class CharController : MonoBehaviour
             gloveHit = true;
             anim.SetBool("GloveHit", true);
             move = 0;
+
+            foreach(GameObject hittable in glove.GetComponent<GloveHit>().collisionObj)
+            {
+                hittable.GetComponent<EnemyController>().getDamaged(glovedamage);
+            }
         }
     }
 
