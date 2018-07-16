@@ -9,6 +9,7 @@ public class CharController : MonoBehaviour
     //DAMAGE TYPES
     [Header ("DAMAGE TYPES")]
     public float glovedamage = 50;
+    public float staffdamage = 20;
 
 
     //CHARACTER MOVEMENT VALUES
@@ -19,6 +20,7 @@ public class CharController : MonoBehaviour
     //MASTERIES
     [Header("MASTERIES")]
     public bool doublejumpEnabled = false;
+    public int maxQuickHits = 3;
 
 
     
@@ -47,6 +49,10 @@ public class CharController : MonoBehaviour
     public bool evading = false;
 
     public GameObject glove;
+    public GameObject staff;
+    bool follow = false;
+    public int quickHitCounter = 0;
+    
 
 
     // Use this for initialization
@@ -66,7 +72,7 @@ public class CharController : MonoBehaviour
 
         anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
 
-        if (!gloveHit && !isInvin && !evading)
+        if (!gloveHit && !isInvin && !evading && !quickHit)
         {
             move = Input.GetAxis("Horizontal");
         }
@@ -110,7 +116,7 @@ public class CharController : MonoBehaviour
     {
 
         //JUMPING AND DOUBLEJUMPING
-        if (Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading)
+        if (Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading && !quickHit)
         {
             if (grounded)
             {
@@ -171,6 +177,17 @@ public class CharController : MonoBehaviour
             quickHit = true;
             anim.SetBool("QuickHit", true);
             move = 0;
+            quickHitCounter++;
+        }
+        else if (!gloveHit && Input.GetButtonDown("Fire2") && grounded && !isInvin && !evading && follow && quickHitCounter < maxQuickHits)
+        {
+            Debug.Log("QUICK");
+            quickHit = true;
+            anim.SetBool("QuickFollow", true);
+            move = 0;
+            quickHitCounter++;
+
+
         }
 
 
@@ -199,6 +216,9 @@ public class CharController : MonoBehaviour
     {
         quickHit = false;
         anim.SetBool("QuickHit", false);
+        anim.SetBool("QuickFollow", false);
+        follow = false;
+        quickHitCounter = 0;
     }
 
     //GETTING DAMAGED BY RUNNING INTO ENEMY
@@ -294,6 +314,21 @@ public class CharController : MonoBehaviour
         foreach (GameObject hittable in glove.GetComponent<GloveHit>().collisionObj)
         {
             hittable.GetComponent<EnemyController>().getDamaged(glovedamage);
+        }
+    }
+
+    //ENABLE QUICKATTACK FOLLOWUP
+    private void QuickFollow()
+    {
+        follow = true;
+    }
+
+    //DAMAGE ENEMY WITH STAFF
+    private void OnStaffHit()
+    {
+        foreach (GameObject hittable in staff.GetComponent<StaffHit>().collisionObj)
+        {
+            hittable.GetComponent<EnemyController>().getDamaged(staffdamage);
         }
     }
 
