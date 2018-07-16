@@ -30,6 +30,7 @@ public class CharController : MonoBehaviour
     bool isInvin = false;
     bool lefthit;
     bool righthit;
+    bool quickHit;
 
     Animator anim;
 
@@ -155,6 +156,23 @@ public class CharController : MonoBehaviour
 
         }
 
+        //QUICKATTACK
+        if (!gloveHit && !quickHit && Input.GetButtonDown("Fire2") && grounded && !isInvin && !evading)
+        {
+            if (facingRight && Input.GetAxis("Horizontal") < 0)
+            {
+                Flip();
+            }
+            if (!facingRight && Input.GetAxis("Horizontal") > 0)
+            {
+                Flip();
+            }
+            Debug.Log("QUICK");
+            quickHit = true;
+            anim.SetBool("QuickHit", true);
+            move = 0;
+        }
+
 
     }
 
@@ -174,6 +192,12 @@ public class CharController : MonoBehaviour
         gloveHit = false;
         anim.SetBool("GloveHit", false);
         Debug.Log("STOP");
+    }
+
+    void QuickEnd()
+    {
+        quickHit = false;
+        anim.SetBool("QuickHit", false);
     }
 
     //GETTING DAMAGED BY RUNNING INTO ENEMY
