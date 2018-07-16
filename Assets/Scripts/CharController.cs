@@ -17,6 +17,10 @@ public class CharController : MonoBehaviour
     bool isInvin = false;
     bool lefthit;
     bool righthit;
+
+    public bool doublejumpEnabled = false;
+    public bool secondjump = false;
+    public bool jumped = false;
     
 
     Animator anim;
@@ -85,16 +89,37 @@ public class CharController : MonoBehaviour
             evading = false;
         }
 
+       
+
     }
 
     private void Update()
     {
-        if (grounded && Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading)
+        if (Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading)
         {
-            anim.SetBool("Ground", false);
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
-        }
+            if (grounded)
+            {
+                if (doublejumpEnabled)
+                {
+                    secondjump = true;
+                }
+                anim.SetBool("Ground", false);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+                
+            } else
+            {
+                if (secondjump && doublejumpEnabled)
+                {
+                    secondjump = false;
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+                }
+            }
+            
 
+        }
+        
         if (!gloveHit && Input.GetButtonDown("Fire1") && grounded && !isInvin && !evading)
         {
             if(facingRight && Input.GetAxis("Horizontal") < 0)
@@ -110,11 +135,10 @@ public class CharController : MonoBehaviour
             anim.SetBool("GloveHit", true);
             move = 0;
 
-            foreach(GameObject hittable in glove.GetComponent<GloveHit>().collisionObj)
-            {
-                hittable.GetComponent<EnemyController>().getDamaged(glovedamage);
-            }
+            
         }
+
+        
     }
 
     void Flip()
@@ -210,6 +234,14 @@ public class CharController : MonoBehaviour
     {
         anim.SetBool("Evade", false);
         evading = false;
+    }
+
+    private void OnGloveHit()
+    {
+        foreach (GameObject hittable in glove.GetComponent<GloveHit>().collisionObj)
+        {
+            hittable.GetComponent<EnemyController>().getDamaged(glovedamage);
+        }
     }
 
    
