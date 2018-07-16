@@ -194,6 +194,7 @@ public class CharController : MonoBehaviour
         Debug.Log("STOP");
     }
 
+    //QUICKHIT ANIMATION END
     void QuickEnd()
     {
         quickHit = false;
