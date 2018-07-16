@@ -23,6 +23,8 @@ public class GloveHit : MonoBehaviour {
 
     }
 
+
+    //LOAD ENEMIES INTO COLLISIONLIST
     private void OnTriggerStay2D(Collider2D collision)
     {
 
@@ -34,6 +36,7 @@ public class GloveHit : MonoBehaviour {
             
     }
 
+    //REMOVE ENEMIES FROM COLLISIONLIST
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collisionObj.Contains(collision.gameObject))

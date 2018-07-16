@@ -6,22 +6,30 @@ public class CharController : MonoBehaviour
 {
 
 
-
+    //DAMAGE TYPES
+    [Header ("DAMAGE TYPES")]
     public float glovedamage = 50;
-   
 
 
-
+    //CHARACTER MOVEMENT VALUES
+    [Header("CHARACTER MOVEMENT VALUES")]
     public float maxSpeed = 10f;
+    public float jumpForce = 700f;
+
+    //MASTERIES
+    [Header("MASTERIES")]
+    public bool doublejumpEnabled = false;
+
+
+    
+    //OTHER
+    [Header("DEBUGGING")]
+    public bool secondjump = false;
+    public bool jumped = false;
     bool facingRight = true;
     bool isInvin = false;
     bool lefthit;
     bool righthit;
-
-    public bool doublejumpEnabled = false;
-    public bool secondjump = false;
-    public bool jumped = false;
-    
 
     Animator anim;
 
@@ -29,7 +37,7 @@ public class CharController : MonoBehaviour
     public Transform groundCheck;
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
-    public float jumpForce = 700f;
+    
     public bool gloveHit = false;
     float move;
     public LayerMask whatisEnemy;
@@ -51,6 +59,7 @@ public class CharController : MonoBehaviour
     void FixedUpdate()
     {
 
+        //MOVEMENT
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         anim.SetBool("Ground", grounded);
 
@@ -60,7 +69,6 @@ public class CharController : MonoBehaviour
         {
             move = Input.GetAxis("Horizontal");
         }
-
 
         anim.SetFloat("Speed", Mathf.Abs(move));
 
@@ -73,28 +81,34 @@ public class CharController : MonoBehaviour
         else if (move < 0 && facingRight)
             Flip();
 
-        if(move != 0)
+
+        //EVADE
+        if (move != 0)
         {
-            if(Input.GetAxis("Vertical") < 0 && anim.GetFloat("vSpeed") == 0)
+            if (Input.GetAxis("Vertical") < 0 && anim.GetFloat("vSpeed") == 0)
             {
                 anim.SetBool("Evade", true);
                 evading = true;
-                
+
             }
         }
 
-        if(anim.GetFloat("vSpeed") != 0)
+
+        //Stop EVADE if falling
+        if (anim.GetFloat("vSpeed") != 0)
         {
             anim.SetBool("Evade", false);
             evading = false;
         }
 
-       
+
 
     }
 
     private void Update()
     {
+
+        //JUMPING AND DOUBLEJUMPING
         if (Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading)
         {
             if (grounded)
@@ -106,8 +120,9 @@ public class CharController : MonoBehaviour
                 anim.SetBool("Ground", false);
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
-                
-            } else
+
+            }
+            else
             {
                 if (secondjump && doublejumpEnabled)
                 {
@@ -116,17 +131,19 @@ public class CharController : MonoBehaviour
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
                 }
             }
-            
+
 
         }
-        
+
+
+        //GLOVEATTACK
         if (!gloveHit && Input.GetButtonDown("Fire1") && grounded && !isInvin && !evading)
         {
-            if(facingRight && Input.GetAxis("Horizontal") < 0)
+            if (facingRight && Input.GetAxis("Horizontal") < 0)
             {
                 Flip();
             }
-            if(!facingRight && Input.GetAxis("Horizontal") > 0)
+            if (!facingRight && Input.GetAxis("Horizontal") > 0)
             {
                 Flip();
             }
@@ -135,12 +152,13 @@ public class CharController : MonoBehaviour
             anim.SetBool("GloveHit", true);
             move = 0;
 
-            
+
         }
 
-        
+
     }
 
+    //FLIP CHARACTER SPRITE
     void Flip()
     {
         facingRight = !facingRight;
@@ -149,6 +167,8 @@ public class CharController : MonoBehaviour
         GetComponent<Transform>().localScale = theScale;
     }
 
+
+    //GLOVEHIT ANIMATION END
     void AnimEnd()
     {
         gloveHit = false;
@@ -156,7 +176,7 @@ public class CharController : MonoBehaviour
         Debug.Log("STOP");
     }
 
-
+    //GETTING DAMAGED BY RUNNING INTO ENEMY
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -190,16 +210,19 @@ public class CharController : MonoBehaviour
                 }
             }
 
-            //DOSomething
-            if (!evading) { 
+            
+            if (!evading)
+            {
                 anim.SetBool("GetHit", true);
             }
 
         }
 
-        
+
     }
 
+
+    //START INVINCIBLE FRAME
     private void StartInvin()
     {
         int knockback = 0;
@@ -208,7 +231,7 @@ public class CharController : MonoBehaviour
         {
             knockback = -15;
         }
-        else if(lefthit == true)
+        else if (lefthit == true)
         {
             knockback = 15;
         }
@@ -222,20 +245,25 @@ public class CharController : MonoBehaviour
 
     }
 
+
+    //STOP INVINCIBLE FRAME
     private void StopInvin()
     {
         anim.SetBool("GetHit", false);
         GetComponent<SpriteRenderer>().material = standardMat;
         isInvin = false;
-        
+
     }
 
+    //STOP EVASION
     private void StopEvade()
     {
         anim.SetBool("Evade", false);
         evading = false;
     }
 
+
+    //DAMAGE ENEMY WITH GLOVE
     private void OnGloveHit()
     {
         foreach (GameObject hittable in glove.GetComponent<GloveHit>().collisionObj)
@@ -244,6 +272,6 @@ public class CharController : MonoBehaviour
         }
     }
 
-   
+
 
 }
