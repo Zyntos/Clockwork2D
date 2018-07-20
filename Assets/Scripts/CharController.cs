@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-
+    [Header("Player Attributes")]
+    public List<PlayerAttributes> Attributes = new List<PlayerAttributes>();
 
     //DAMAGE TYPES
     [Header ("DAMAGE TYPES")]
@@ -59,6 +60,8 @@ public class CharController : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
+        
+       
     }
 
 
