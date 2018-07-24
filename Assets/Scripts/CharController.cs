@@ -157,7 +157,7 @@ public class CharController : MonoBehaviour
 
 
         //STAFFCOMBO
-        if (Input.GetButtonDown("Fire1") && !staffCombo && canAttackStaff && staffCooldown)
+        if (Input.GetButtonDown("Fire1") && !staffCombo && canAttackStaff && staffCooldown && grounded && move == 0 )
         {
             staffCooldown = false;
             anim.SetBool("StaffStart", true);
@@ -167,7 +167,7 @@ public class CharController : MonoBehaviour
             buttons.Add(1);
 
         }
-        if(Input.GetButtonDown("Fire1") && staffCombo && canAttackStaff)
+        if(Input.GetButtonDown("Fire1") && staffCombo && canAttackStaff && grounded && move == 0)
         {
             staffcombocount++;
             canAttackStaff = false;
@@ -177,7 +177,7 @@ public class CharController : MonoBehaviour
             Debug.Log("SCHLAGEN");
 
         }
-        if (Input.GetButtonDown("Fire2") && staffCombo && canAttackStaff)
+        if (Input.GetButtonDown("Fire2") && staffCombo && canAttackStaff && grounded && move == 0)
         {
             staffcombocount++;
             canAttackStaff = false;
@@ -328,12 +328,30 @@ public class CharController : MonoBehaviour
         }
         else
         {
-            anim.SetFloat("StaffCombo", anim.GetFloat("StaffCombo") + 1);
-            combocount++;
+
+            if(staffcombocount == 1 && anim.GetBool("Attack2") == true)
+            {
+                staffCombo = false;
+                anim.SetBool("StaffStart", false);
+                anim.SetFloat("StaffCombo", 0);
+                combocount = 0;
+                staffcombocount = 0;
+                canAttackStaff = true;
+                StartCoroutine(StaffAttackCooldown());
+                anim.SetBool("Attack1", false);
+                anim.SetBool("Attack2", false);
+            }
+            else
+            {
+                anim.SetFloat("StaffCombo", anim.GetFloat("StaffCombo") + 1);
+                combocount++;
+            }
+            
             
 
 
         }
+        
 
     }
 
