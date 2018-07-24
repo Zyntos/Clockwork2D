@@ -267,7 +267,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 84fd07ffbb0f3f244ae48e3c27353d35, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -303,7 +303,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 55
-  gloveHit: 0
   whatisEnemy:
     serializedVersion: 2
     m_Bits: 512
@@ -312,7 +311,12 @@ MonoBehaviour:
   evading: 0
   glove: {fileID: 1435557448}
   staff: {fileID: 2102784865}
-  quickHitCounter: 0
+  combocount: 0
+  staffcombocount: 0
+  canAttackStaff: 1
+  staffCombo: 0
+  staffCooldown: 1
+  buttons: 
 --- !u!1 &1050406908
 GameObject:
   m_ObjectHideFlags: 0

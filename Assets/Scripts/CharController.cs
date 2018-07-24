@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ public class CharController : MonoBehaviour
     bool isInvin = false;
     bool lefthit;
     bool righthit;
-    bool quickHit;
+   
 
     Animator anim;
 
@@ -42,7 +43,7 @@ public class CharController : MonoBehaviour
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
     
-    public bool gloveHit = false;
+    
     float move;
     public LayerMask whatisEnemy;
     public Material invincibleFrame;
@@ -52,7 +53,14 @@ public class CharController : MonoBehaviour
     public GameObject glove;
     public GameObject staff;
     bool follow = false;
-    public int quickHitCounter = 0;
+    public float combocount = 0;
+    public float staffcombocount = 0;
+    public bool canAttackStaff = true;
+    public bool staffCombo = false;
+    public bool staffCooldown = true;
+
+    public List<int> buttons;
+   
     
 
 
@@ -60,8 +68,9 @@ public class CharController : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
-        
-       
+         
+
+
     }
 
 
@@ -75,7 +84,7 @@ public class CharController : MonoBehaviour
 
         anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
 
-        if (!gloveHit && !isInvin && !evading && !quickHit)
+        if (!isInvin && !evading && !staffCombo)
         {
             move = Input.GetAxis("Horizontal");
         }
@@ -111,15 +120,16 @@ public class CharController : MonoBehaviour
             evading = false;
         }
 
+        
+
 
 
     }
 
     private void Update()
     {
-
         //JUMPING AND DOUBLEJUMPING
-        if (Input.GetButtonDown("Jump") && !gloveHit && !isInvin && !evading && !quickHit)
+        if (Input.GetButtonDown("Jump") && !isInvin && !evading && !staffCombo)
         {
             if (grounded)
             {
@@ -146,52 +156,45 @@ public class CharController : MonoBehaviour
         }
 
 
-        //GLOVEATTACK
-        if (!gloveHit && Input.GetButtonDown("Fire1") && grounded && !isInvin && !evading)
+        //STAFFCOMBO
+        if (Input.GetButtonDown("Fire1") && !staffCombo && canAttackStaff && staffCooldown)
         {
-            if (facingRight && Input.GetAxis("Horizontal") < 0)
-            {
-                Flip();
-            }
-            if (!facingRight && Input.GetAxis("Horizontal") > 0)
-            {
-                Flip();
-            }
-            Debug.Log("GLOVE");
-            gloveHit = true;
-            anim.SetBool("GloveHit", true);
-            move = 0;
+            staffCooldown = false;
+            anim.SetBool("StaffStart", true);
+            anim.SetBool("Attack1", true);
+            anim.SetBool("Attack2", false);
+            canAttackStaff = false;
+            buttons.Add(1);
 
+        }
+        if(Input.GetButtonDown("Fire1") && staffCombo && canAttackStaff)
+        {
+            staffcombocount++;
+            canAttackStaff = false;
+            anim.SetBool("Attack1", true);
+            anim.SetBool("Attack2", false);
+            buttons.Add(1);
+            Debug.Log("SCHLAGEN");
+
+        }
+        if (Input.GetButtonDown("Fire2") && staffCombo && canAttackStaff)
+        {
+            staffcombocount++;
+            canAttackStaff = false;
+            anim.SetBool("Attack1", false);
+            anim.SetBool("Attack2", true);
+            buttons.Add(2);
+            Debug.Log("Schießen");
 
         }
 
-        //QUICKATTACK
-        if (!gloveHit && !quickHit && Input.GetButtonDown("Fire2") && grounded && !isInvin && !evading)
-        {
-            if (facingRight && Input.GetAxis("Horizontal") < 0)
-            {
-                Flip();
-            }
-            if (!facingRight && Input.GetAxis("Horizontal") > 0)
-            {
-                Flip();
-            }
-            Debug.Log("QUICK");
-            quickHit = true;
-            anim.SetBool("QuickHit", true);
-            move = 0;
-            quickHitCounter++;
-        }
-        else if (!gloveHit && Input.GetButtonDown("Fire2") && grounded && !isInvin && !evading && follow && quickHitCounter < maxQuickHits)
-        {
-            Debug.Log("QUICK");
-            quickHit = true;
-            anim.SetBool("QuickFollow", true);
-            move = 0;
-            quickHitCounter++;
 
 
-        }
+
+
+
+
+
 
 
     }
@@ -206,23 +209,7 @@ public class CharController : MonoBehaviour
     }
 
 
-    //GLOVEHIT ANIMATION END
-    void AnimEnd()
-    {
-        gloveHit = false;
-        anim.SetBool("GloveHit", false);
-        Debug.Log("STOP");
-    }
 
-    //QUICKHIT ANIMATION END
-    void QuickEnd()
-    {
-        quickHit = false;
-        anim.SetBool("QuickHit", false);
-        anim.SetBool("QuickFollow", false);
-        follow = false;
-        quickHitCounter = 0;
-    }
 
     //GETTING DAMAGED BY RUNNING INTO ENEMY
     private void OnTriggerEnter2D(Collider2D collision)
@@ -310,31 +297,51 @@ public class CharController : MonoBehaviour
         evading = false;
     }
 
-
-    //DAMAGE ENEMY WITH GLOVE
-    private void OnGloveHit()
+    //START STAFFCOMBO
+    private void StaffStart()
     {
-        foreach (GameObject hittable in glove.GetComponent<GloveHit>().collisionObj)
-        {
-            hittable.GetComponent<EnemyController>().getDamaged(glovedamage);
+        staffCombo = true;
+        canAttackStaff = true;
+    }
+
+    //LAST STAFFCOMBO
+    private void LastStaffStart()
+    {
+        staffCombo = true;
+        Debug.Log("LASTSTAFFSTART");
+    }
+
+    //STOP STAFFCOMBO
+    private void StaffStop()
+    {
+        if(combocount == staffcombocount){
+            staffCombo = false;
+            anim.SetBool("StaffStart", false);
+            anim.SetFloat("StaffCombo", 0);
+            combocount = 0;
+            staffcombocount = 0;
+            canAttackStaff = true;
+            StartCoroutine(StaffAttackCooldown());
+            anim.SetBool("Attack1", false);
+            anim.SetBool("Attack2", false);
+
         }
-    }
-
-    //ENABLE QUICKATTACK FOLLOWUP
-    private void QuickFollow()
-    {
-        follow = true;
-    }
-
-    //DAMAGE ENEMY WITH STAFF
-    private void OnStaffHit()
-    {
-        foreach (GameObject hittable in staff.GetComponent<StaffHit>().collisionObj)
+        else
         {
-            hittable.GetComponent<EnemyController>().getDamaged(staffdamage);
+            anim.SetFloat("StaffCombo", anim.GetFloat("StaffCombo") + 1);
+            combocount++;
+            
+
+
         }
+
     }
 
+    IEnumerator StaffAttackCooldown()
+    {
+        yield return new WaitForSeconds(1);
+        staffCooldown = true;
+    }
 
-
+    
 }
