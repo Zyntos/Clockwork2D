@@ -317,6 +317,15 @@ MonoBehaviour:
   staffCombo: 0
   staffCooldown: 1
   buttons: 
+  stafffirst: 0
+  hitfirst: 0
+  buttonpresses: 
+  start: 0
+  end: 0
+  buttonList: 
+  buttonCount: 0
+  combos: 010000000b0000006f0000000200000016000000de000000ae080000ad080000c35600009f63030037e42100
+  parsing: 0
 --- !u!1 &1050406908
 GameObject:
   m_ObjectHideFlags: 0

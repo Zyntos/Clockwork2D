@@ -52,23 +52,41 @@ public class CharController : MonoBehaviour
 
     public GameObject glove;
     public GameObject staff;
-    bool follow = false;
+   
     public float combocount = 0;
     public float staffcombocount = 0;
     public bool canAttackStaff = true;
     public bool staffCombo = false;
     public bool staffCooldown = true;
+    
 
     public List<int> buttons;
-   
+
+    public bool stafffirst = false;
+    public bool hitfirst = false;
+
+    //TEST
+    public List<int> buttonpresses;
+    public bool start = false;
+    public bool end = false;
+    public string buttonList = "";
+    public int buttonCount = 0;
+
+    public List<int> combos = new List<int>{ 1, 11, 111, 2, 22, 222, 2222 };
+    public int parsing = 0;
+    public bool pressed = false;
     
+
+
+
 
 
     // Use this for initialization
     void Awake()
     {
         anim = GetComponent<Animator>();
-         
+        
+
 
 
     }
@@ -84,7 +102,7 @@ public class CharController : MonoBehaviour
 
         anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
 
-        if (!isInvin && !evading && !staffCombo)
+        if (!isInvin && !evading && anim.GetInteger("currentstate") == 0)
         {
             move = Input.GetAxis("Horizontal");
         }
@@ -129,7 +147,7 @@ public class CharController : MonoBehaviour
     private void Update()
     {
         //JUMPING AND DOUBLEJUMPING
-        if (Input.GetButtonDown("Jump") && !isInvin && !evading && !staffCombo)
+        if (Input.GetButtonDown("Jump") && !isInvin && !evading && anim.GetInteger("currentstate") == 0)
         {
             if (grounded)
             {
@@ -156,37 +174,63 @@ public class CharController : MonoBehaviour
         }
 
 
-        //STAFFCOMBO
-        if (Input.GetButtonDown("Fire1") && !staffCombo && canAttackStaff && staffCooldown && grounded && move == 0 )
-        {
-            staffCooldown = false;
-            anim.SetBool("StaffStart", true);
-            anim.SetBool("Attack1", true);
-            anim.SetBool("Attack2", false);
-            canAttackStaff = false;
-            buttons.Add(1);
 
-        }
-        if(Input.GetButtonDown("Fire1") && staffCombo && canAttackStaff && grounded && move == 0)
-        {
-            staffcombocount++;
-            canAttackStaff = false;
-            anim.SetBool("Attack1", true);
-            anim.SetBool("Attack2", false);
-            buttons.Add(1);
-            Debug.Log("SCHLAGEN");
 
-        }
-        if (Input.GetButtonDown("Fire2") && staffCombo && canAttackStaff && grounded && move == 0)
+        //HandleAttacks
+        if (Input.GetButtonDown("Fire1"))
         {
-            staffcombocount++;
-            canAttackStaff = false;
-            anim.SetBool("Attack1", false);
-            anim.SetBool("Attack2", true);
-            buttons.Add(2);
-            Debug.Log("Schießen");
-
+            Attack(1);
         }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Attack(2);
+        }
+        
+
+
+        ////STAFFCOMBO
+        //if (Input.GetButtonDown("Fire1") && !staffCombo && canAttackStaff && staffCooldown && grounded && move == 0)
+        //{
+        //    staffCooldown = false;
+        //    anim.SetBool("StaffStart", true);
+        //    anim.SetBool("Attack1", true);
+        //    anim.SetBool("Attack2", false);
+        //    canAttackStaff = false;
+        //    stafffirst = true;
+
+
+        //}
+        //else if (Input.GetButtonDown("Fire2") && !staffCombo && canAttackStaff && staffCooldown && grounded && move == 0)
+        //{
+        //    staffCooldown = false;
+        //    anim.SetBool("StaffStart", true);
+        //    anim.SetBool("Attack2", true);
+        //    anim.SetBool("Attack1", false);
+        //    canAttackStaff = false;
+        //    hitfirst = true;
+
+
+        //}
+        //if (Input.GetButtonDown("Fire1") && staffCombo && canAttackStaff && grounded && move == 0)
+        //{
+        //    staffcombocount++;
+        //    canAttackStaff = false;
+        //    anim.SetBool("Attack1", true);
+        //    anim.SetBool("Attack2", false);
+
+        //    Debug.Log("SCHLAGEN");
+
+        //}
+        //else if (Input.GetButtonDown("Fire2") && staffCombo && canAttackStaff && grounded && move == 0)
+        //{
+        //    staffcombocount++;
+        //    canAttackStaff = false;
+        //    anim.SetBool("Attack1", false);
+        //    anim.SetBool("Attack2", true);
+
+        //    Debug.Log("Schießen");
+
+        //}
 
 
 
@@ -198,6 +242,102 @@ public class CharController : MonoBehaviour
 
 
     }
+
+    private void Attack(int button)
+    {
+        
+
+        if (buttonpresses.Count == 0 && staffCooldown && move == 0 && grounded)
+        {
+            
+            Debug.Log("FirstHit");
+            staffCooldown = false;
+           
+            buttonpresses.Add(button);
+            buttonList += button;
+            anim.SetInteger("currentstate", int.Parse(buttonList));
+            
+            buttonCount = buttonpresses.Count;
+
+        }
+        else if (start && !pressed && move == 0 && grounded)
+        {
+            
+            Debug.Log("Combo");
+           
+            buttonList += button;
+            int.TryParse(buttonList, out parsing);
+            if (combos.Contains(parsing))
+            {
+                
+                pressed = true;
+                buttonpresses.Add(button);
+                anim.SetInteger("currentstate", int.Parse(buttonList));
+                buttonCount = buttonpresses.Count;
+            }
+            
+            
+            
+        }
+        
+
+
+
+
+    }
+
+    void ClearButtons()
+    {
+        
+        buttonCount = 0;
+        buttonpresses.Clear();
+        buttonList = "";
+        StartCoroutine(StaffAttackCooldown());
+        pressed = false;
+        anim.SetInteger("currentstate", 0);
+
+
+    }
+
+    void ClearButtonsOnStop()
+    {
+        buttonCount--;
+        if (pressed == false)
+        {
+            buttonpresses.Clear();
+            buttonList = "";
+            
+            buttonCount = 0;
+            StartCoroutine(StaffAttackCooldown());
+            Debug.Log("CLEAR");
+            anim.SetInteger("currentstate", 0);
+
+        }
+        //anim.SetBool("Attack", true);
+        
+
+
+
+
+    }
+
+    public void StartCountdown(float cd)
+    {
+        StartCoroutine(Countdown(cd));
+    }
+
+    IEnumerator Countdown(float cd)
+    {
+        yield return new WaitForSeconds(cd - 0.1f);
+        start = false;
+        pressed = false;
+        
+
+    }
+
+
+
+
 
     //FLIP CHARACTER SPRITE
     void Flip()
@@ -207,6 +347,8 @@ public class CharController : MonoBehaviour
         theScale.x *= -1;
         GetComponent<Transform>().localScale = theScale;
     }
+
+   
 
 
 
@@ -297,69 +439,105 @@ public class CharController : MonoBehaviour
         evading = false;
     }
 
-    //START STAFFCOMBO
-    private void StaffStart()
-    {
-        staffCombo = true;
-        canAttackStaff = true;
-    }
+    ////START STAFFCOMBO
+    //private void StaffStart()
+    //{
+    //    staffCombo = true;
+    //    canAttackStaff = true;
+    //}
 
-    //LAST STAFFCOMBO
-    private void LastStaffStart()
-    {
-        staffCombo = true;
-        Debug.Log("LASTSTAFFSTART");
-    }
+    ////LAST STAFFCOMBO
+    //private void LastStaffStart()
+    //{
+    //    staffCombo = true;
+    //    Debug.Log("LASTSTAFFSTART");
+    //}
 
-    //STOP STAFFCOMBO
-    private void StaffStop()
-    {
-        if(combocount == staffcombocount){
-            staffCombo = false;
-            anim.SetBool("StaffStart", false);
-            anim.SetFloat("StaffCombo", 0);
-            combocount = 0;
-            staffcombocount = 0;
-            canAttackStaff = true;
-            StartCoroutine(StaffAttackCooldown());
-            anim.SetBool("Attack1", false);
-            anim.SetBool("Attack2", false);
+    ////STOP STAFFCOMBO
+    //private void StaffStop()
+    //{
+    //    if (combocount == staffcombocount)
+    //    {
+    //        staffCombo = false;
+    //        anim.SetBool("StaffStart", false);
+    //        anim.SetFloat("StaffCombo", 0);
+    //        combocount = 0;
+    //        staffcombocount = 0;
+    //        canAttackStaff = true;
+    //        StartCoroutine(StaffAttackCooldown());
+    //        anim.SetBool("Attack1", false);
+    //        anim.SetBool("Attack2", false);
+    //        stafffirst = false;
 
-        }
-        else
-        {
+    //    }
+    //    else
+    //    {
 
-            if(staffcombocount == 1 && anim.GetBool("Attack2") == true)
-            {
-                staffCombo = false;
-                anim.SetBool("StaffStart", false);
-                anim.SetFloat("StaffCombo", 0);
-                combocount = 0;
-                staffcombocount = 0;
-                canAttackStaff = true;
-                StartCoroutine(StaffAttackCooldown());
-                anim.SetBool("Attack1", false);
-                anim.SetBool("Attack2", false);
-            }
-            else
-            {
-                anim.SetFloat("StaffCombo", anim.GetFloat("StaffCombo") + 1);
-                combocount++;
-            }
-            
-            
+    //        if (staffcombocount == 1 && anim.GetBool("Attack2") == true && stafffirst)
+    //        {
+    //            staffCombo = false;
+    //            anim.SetBool("StaffStart", false);
+    //            anim.SetFloat("StaffCombo", 0);
+    //            combocount = 0;
+    //            staffcombocount = 0;
+    //            canAttackStaff = true;
+    //            StartCoroutine(StaffAttackCooldown());
+    //            anim.SetBool("Attack1", false);
+    //            anim.SetBool("Attack2", false);
+    //            stafffirst = false;
+    //        }
+    //        if (staffcombocount == 1 && anim.GetBool("Attack1") == true && hitfirst)
+    //        {
+    //            staffCombo = false;
+    //            anim.SetBool("StaffStart", false);
+    //            anim.SetFloat("StaffCombo", 0);
+    //            combocount = 0;
+    //            staffcombocount = 0;
+    //            canAttackStaff = true;
+    //            StartCoroutine(StaffAttackCooldown());
+    //            anim.SetBool("Attack1", false);
+    //            anim.SetBool("Attack2", false);
+    //            hitfirst = false;
+    //        }
+    //        if (staffcombocount == 2 && anim.GetBool("Attack1") == true && hitfirst)
+    //        {
+    //            staffCombo = false;
+    //            anim.SetBool("StaffStart", false);
+    //            anim.SetFloat("StaffCombo", 0);
+    //            combocount = 0;
+    //            staffcombocount = 0;
+    //            canAttackStaff = true;
+    //            StartCoroutine(StaffAttackCooldown());
+    //            anim.SetBool("Attack1", false);
+    //            anim.SetBool("Attack2", false);
+    //            hitfirst = false;
+    //        }
+    //        else
+    //        {
+    //            anim.SetFloat("StaffCombo", anim.GetFloat("StaffCombo") + 1);
+    //            combocount++;
+    //        }
 
 
-        }
-        
 
-    }
+
+    //    }
+
+
+    //}
 
     IEnumerator StaffAttackCooldown()
     {
         yield return new WaitForSeconds(1);
         staffCooldown = true;
+        anim.SetBool("Attack", false);
+        Debug.Log("COOLDOWN");
+        buttonpresses.Clear();
+        buttonList = "";
+        anim.SetInteger("currentstate", 0);
+        buttonCount = 0;
+       
     }
 
-    
+
 }
