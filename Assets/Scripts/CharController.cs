@@ -406,11 +406,11 @@ public class CharController : MonoBehaviour
 
         if (righthit == true)
         {
-            knockback = -15;
+            knockback = -7;
         }
         else if (lefthit == true)
         {
-            knockback = 15;
+            knockback = 7;
         }
         GetComponent<SpriteRenderer>().material = invincibleFrame;
         isInvin = true;
