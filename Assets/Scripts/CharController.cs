@@ -75,7 +75,11 @@ public class CharController : MonoBehaviour
     public List<int> combos = new List<int>{ 1, 11, 111, 2, 22, 222, 2222 };
     public int parsing = 0;
     public bool pressed = false;
-    
+    public float distance = 1.0f;
+    public LayerMask whatisLadder;
+    public bool isClimbing = false;
+    public float inputVertical;
+
 
 
 
@@ -138,6 +142,31 @@ public class CharController : MonoBehaviour
             evading = false;
         }
 
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatisLadder);
+      
+        if(hitInfo.collider != null)
+        {
+            Debug.Log(hitInfo.collider);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                isClimbing = true;
+            }
+        }
+        else
+        {
+            isClimbing = false;
+        }
+
+        if (isClimbing)
+        {
+            inputVertical = Input.GetAxisRaw("Vertical");
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, inputVertical * maxSpeed);
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().gravityScale = 1;
+        }
         
 
 
