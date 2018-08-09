@@ -193,51 +193,7 @@ public class CharController : MonoBehaviour
         
 
 
-        ////STAFFCOMBO
-        //if (Input.GetButtonDown("Fire1") && !staffCombo && canAttackStaff && staffCooldown && grounded && move == 0)
-        //{
-        //    staffCooldown = false;
-        //    anim.SetBool("StaffStart", true);
-        //    anim.SetBool("Attack1", true);
-        //    anim.SetBool("Attack2", false);
-        //    canAttackStaff = false;
-        //    stafffirst = true;
-
-
-        //}
-        //else if (Input.GetButtonDown("Fire2") && !staffCombo && canAttackStaff && staffCooldown && grounded && move == 0)
-        //{
-        //    staffCooldown = false;
-        //    anim.SetBool("StaffStart", true);
-        //    anim.SetBool("Attack2", true);
-        //    anim.SetBool("Attack1", false);
-        //    canAttackStaff = false;
-        //    hitfirst = true;
-
-
-        //}
-        //if (Input.GetButtonDown("Fire1") && staffCombo && canAttackStaff && grounded && move == 0)
-        //{
-        //    staffcombocount++;
-        //    canAttackStaff = false;
-        //    anim.SetBool("Attack1", true);
-        //    anim.SetBool("Attack2", false);
-
-        //    Debug.Log("SCHLAGEN");
-
-        //}
-        //else if (Input.GetButtonDown("Fire2") && staffCombo && canAttackStaff && grounded && move == 0)
-        //{
-        //    staffcombocount++;
-        //    canAttackStaff = false;
-        //    anim.SetBool("Attack1", false);
-        //    anim.SetBool("Attack2", true);
-
-        //    Debug.Log("Schießen");
-
-        //}
-
-
+        
 
 
 
@@ -318,7 +274,7 @@ public class CharController : MonoBehaviour
             anim.SetInteger("currentstate", 0);
 
         }
-        //anim.SetBool("Attack", true);
+       
         
 
 
@@ -444,92 +400,7 @@ public class CharController : MonoBehaviour
         evading = false;
     }
 
-    ////START STAFFCOMBO
-    //private void StaffStart()
-    //{
-    //    staffCombo = true;
-    //    canAttackStaff = true;
-    //}
-
-    ////LAST STAFFCOMBO
-    //private void LastStaffStart()
-    //{
-    //    staffCombo = true;
-    //    Debug.Log("LASTSTAFFSTART");
-    //}
-
-    ////STOP STAFFCOMBO
-    //private void StaffStop()
-    //{
-    //    if (combocount == staffcombocount)
-    //    {
-    //        staffCombo = false;
-    //        anim.SetBool("StaffStart", false);
-    //        anim.SetFloat("StaffCombo", 0);
-    //        combocount = 0;
-    //        staffcombocount = 0;
-    //        canAttackStaff = true;
-    //        StartCoroutine(StaffAttackCooldown());
-    //        anim.SetBool("Attack1", false);
-    //        anim.SetBool("Attack2", false);
-    //        stafffirst = false;
-
-    //    }
-    //    else
-    //    {
-
-    //        if (staffcombocount == 1 && anim.GetBool("Attack2") == true && stafffirst)
-    //        {
-    //            staffCombo = false;
-    //            anim.SetBool("StaffStart", false);
-    //            anim.SetFloat("StaffCombo", 0);
-    //            combocount = 0;
-    //            staffcombocount = 0;
-    //            canAttackStaff = true;
-    //            StartCoroutine(StaffAttackCooldown());
-    //            anim.SetBool("Attack1", false);
-    //            anim.SetBool("Attack2", false);
-    //            stafffirst = false;
-    //        }
-    //        if (staffcombocount == 1 && anim.GetBool("Attack1") == true && hitfirst)
-    //        {
-    //            staffCombo = false;
-    //            anim.SetBool("StaffStart", false);
-    //            anim.SetFloat("StaffCombo", 0);
-    //            combocount = 0;
-    //            staffcombocount = 0;
-    //            canAttackStaff = true;
-    //            StartCoroutine(StaffAttackCooldown());
-    //            anim.SetBool("Attack1", false);
-    //            anim.SetBool("Attack2", false);
-    //            hitfirst = false;
-    //        }
-    //        if (staffcombocount == 2 && anim.GetBool("Attack1") == true && hitfirst)
-    //        {
-    //            staffCombo = false;
-    //            anim.SetBool("StaffStart", false);
-    //            anim.SetFloat("StaffCombo", 0);
-    //            combocount = 0;
-    //            staffcombocount = 0;
-    //            canAttackStaff = true;
-    //            StartCoroutine(StaffAttackCooldown());
-    //            anim.SetBool("Attack1", false);
-    //            anim.SetBool("Attack2", false);
-    //            hitfirst = false;
-    //        }
-    //        else
-    //        {
-    //            anim.SetFloat("StaffCombo", anim.GetFloat("StaffCombo") + 1);
-    //            combocount++;
-    //        }
-
-
-
-
-    //    }
-
-
-    //}
+    
 
     IEnumerator StaffAttackCooldown()
     {
@@ -542,6 +413,22 @@ public class CharController : MonoBehaviour
         anim.SetInteger("currentstate", 0);
         buttonCount = 0;
        
+    }
+
+    void GloveDamaged()
+    {
+        foreach( GameObject enemy in glove.GetComponent<GloveHit>().collisionObj)
+        {
+            enemy.GetComponent<EnemyController>().getDamaged(glovedamage);
+        }
+    }
+
+    void StaffDamaged()
+    {
+        foreach (GameObject enemy in staff.GetComponent<StaffHit>().collisionObj)
+        {
+            enemy.GetComponent<EnemyController>().getDamaged(staffdamage);
+        }
     }
 
 

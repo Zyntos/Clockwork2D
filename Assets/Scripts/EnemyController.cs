@@ -8,13 +8,16 @@ public class EnemyController : MonoBehaviour {
     public float maxlife = 100;
     float life;
 
+    public Material onHit;
+    public Material norm;
+
 	// Use this for initialization
 	void Start () {
         life = maxlife;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		
         //DESTROY ENEMY
         if(life <= 0)
@@ -27,6 +30,14 @@ public class EnemyController : MonoBehaviour {
     public void getDamaged(float dmg)
     {
         life -= dmg;
+        GetComponent<SpriteRenderer>().material = onHit;
+        StartCoroutine(MatChange());
+    }
+
+    IEnumerator MatChange()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<SpriteRenderer>().material = norm;
     }
 
 }

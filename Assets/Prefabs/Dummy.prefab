@@ -79,7 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxlife: 100
-  life: 0
+  onHit: {fileID: 2100000, guid: eef2a10814a021741bc9eabe69d53eb2, type: 2}
+  norm: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!212 &212770982843691042
 SpriteRenderer:
   m_ObjectHideFlags: 1
