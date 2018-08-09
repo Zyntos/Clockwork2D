@@ -142,31 +142,7 @@ public class CharController : MonoBehaviour
             evading = false;
         }
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatisLadder);
       
-        if(hitInfo.collider != null)
-        {
-            Debug.Log(hitInfo.collider);
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                isClimbing = true;
-            }
-        }
-        else
-        {
-            isClimbing = false;
-        }
-
-        if (isClimbing)
-        {
-            inputVertical = Input.GetAxisRaw("Vertical");
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, inputVertical * maxSpeed);
-            GetComponent<Rigidbody2D>().gravityScale = 0;
-        }
-        else
-        {
-            GetComponent<Rigidbody2D>().gravityScale = 1;
-        }
         
 
 
