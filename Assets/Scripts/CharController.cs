@@ -80,6 +80,9 @@ public class CharController : MonoBehaviour
     public bool isClimbing = false;
     public float inputVertical;
 
+    public GameObject bullet;
+    public GameObject bulletStart;
+    public Quaternion rot;
 
 
 
@@ -431,5 +434,15 @@ public class CharController : MonoBehaviour
         }
     }
 
+    void Shoot()
+    {
+       
+        
+        GameObject bul = Instantiate(bullet, bulletStart.transform.position, Quaternion.identity);
+        if (!facingRight)
+        {
+            bul.GetComponent<BulletMove>().maxSpeed = -3;
+        }
+    }
 
 }

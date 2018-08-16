@@ -27,7 +27,7 @@ public class LadderScript : MonoBehaviour {
         {
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
         }
-        else
+        else if(collision.tag=="Player")
         {
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
