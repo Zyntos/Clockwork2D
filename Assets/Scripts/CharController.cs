@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CharController : MonoBehaviour
 {
     [Header("Player Attributes")]
@@ -84,6 +86,10 @@ public class CharController : MonoBehaviour
     public GameObject bulletStart;
     public Quaternion rot;
 
+    public LayerMask whatisPlatform;
+    private PlatformEffector2D platform;
+    public GameObject platformGo;
+
 
 
 
@@ -96,6 +102,11 @@ public class CharController : MonoBehaviour
 
 
 
+    }
+
+    private void Start()
+    {
+        
     }
 
 
@@ -145,6 +156,8 @@ public class CharController : MonoBehaviour
             evading = false;
         }
 
+        
+
       
         
 
@@ -180,6 +193,8 @@ public class CharController : MonoBehaviour
 
 
         }
+
+      
 
 
 
@@ -312,11 +327,21 @@ public class CharController : MonoBehaviour
         GetComponent<Transform>().localScale = theScale;
     }
 
-   
 
 
 
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & whatisPlatform) != 0)
+        {
+            platformGo = collision.gameObject;
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                StartCoroutine(PlatformHandler());
+            }
+        }
+    }
     //GETTING DAMAGED BY RUNNING INTO ENEMY
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -444,5 +469,15 @@ public class CharController : MonoBehaviour
             bul.GetComponent<BulletMove>().maxSpeed = -3;
         }
     }
+
+    IEnumerator PlatformHandler()
+    {
+        platform = platformGo.transform.GetChild(0).GetComponent<PlatformEffector2D>();
+        platform.rotationalOffset = 180f;
+        yield return new WaitForSeconds(0.5f);
+        platform.rotationalOffset = 0;
+    }
+
+    
 
 }
