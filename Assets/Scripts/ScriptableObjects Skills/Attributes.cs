@@ -5,7 +5,7 @@ using UnityEngine;
 
 [CreateAssetMenu (menuName = "Talents/Create Attribute")]
 public class Attributes : ScriptableObject {
-
+    public string Name;
     public string Description;
     public Sprite Thumbnail;
 }

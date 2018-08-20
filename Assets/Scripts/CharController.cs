@@ -9,11 +9,12 @@ public class CharController : MonoBehaviour
 {
     [Header("Player Attributes")]
     public List<PlayerAttributes> Attributes = new List<PlayerAttributes>();
+    public List<Skills> enabledSkills = new List<Skills>();
 
     //DAMAGE TYPES
     [Header ("DAMAGE TYPES")]
-    public float glovedamage = 50;
-    public float staffdamage = 20;
+    public float glovedamage;
+    public float staffdamage;
 
 
     //CHARACTER MOVEMENT VALUES
@@ -89,6 +90,11 @@ public class CharController : MonoBehaviour
     public LayerMask whatisPlatform;
     private PlatformEffector2D platform;
     public GameObject platformGo;
+    private bool canFall = false;
+
+
+    [Header("SKILLTESTING DEBUG")]
+    public Skills TestSkill;
 
 
 
@@ -167,6 +173,20 @@ public class CharController : MonoBehaviour
 
     private void Update()
     {
+        //Update Skillvalues
+
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].attribute.name == "GloveDamage")
+            {
+                glovedamage = Attributes[i].amount;
+            }
+            if (Attributes[i].attribute.name == "StaffDamage")
+            {
+                staffdamage = Attributes[i].amount;
+            }
+        }
+
         //JUMPING AND DOUBLEJUMPING
         if (Input.GetButtonDown("Jump") && !isInvin && !evading && anim.GetInteger("currentstate") == 0)
         {
@@ -208,10 +228,15 @@ public class CharController : MonoBehaviour
         {
             Attack(2);
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.S) && canFall == true)
+        {
+            StartCoroutine(PlatformHandler());
+        }
 
 
-        
+
+
 
 
 
@@ -336,10 +361,18 @@ public class CharController : MonoBehaviour
         if (((1 << collision.gameObject.layer) & whatisPlatform) != 0)
         {
             platformGo = collision.gameObject;
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                StartCoroutine(PlatformHandler());
-            }
+            canFall = true;
+           
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & whatisPlatform) != 0)
+        {
+            
+            canFall = false;
+
         }
     }
     //GETTING DAMAGED BY RUNNING INTO ENEMY
@@ -476,6 +509,12 @@ public class CharController : MonoBehaviour
         platform.rotationalOffset = 180f;
         yield return new WaitForSeconds(0.5f);
         platform.rotationalOffset = 0;
+    }
+
+    public void AddSkill()
+    {
+        enabledSkills.Add(TestSkill);
+        TestSkill.GetSkill(this);
     }
 
     

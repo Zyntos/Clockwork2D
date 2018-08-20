@@ -710,11 +710,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attributes:
   - attribute: {fileID: 11400000, guid: e10b1479dfe6dd74c8a4c3b857e491b5, type: 2}
-    amount: 0
+    amount: 25
   - attribute: {fileID: 11400000, guid: 0df96fa71df25494c8d03643677c0980, type: 2}
-    amount: 0
-  glovedamage: 50
-  staffdamage: 20
+    amount: 10
+  enabledSkills: []
+  glovedamage: 0
+  staffdamage: 0
   maxSpeed: 7
   jumpForce: 700
   doublejumpEnabled: 0
@@ -761,7 +762,8 @@ MonoBehaviour:
   whatisPlatform:
     serializedVersion: 2
     m_Bits: 2048
-  platform: {fileID: 0}
+  platformGo: {fileID: 0}
+  TestSkill: {fileID: 0}
 --- !u!1 &1050406908
 GameObject:
   m_ObjectHideFlags: 0

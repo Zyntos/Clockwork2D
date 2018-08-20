@@ -11,5 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88111607a87074044b717e7a685fbfc2, type: 3}
   m_Name: StaffDamage
   m_EditorClassIdentifier: 
+  Name: StaffDamage
   Description: "Erh\xF6ht StaffDamage"
   Thumbnail: {fileID: 0}
