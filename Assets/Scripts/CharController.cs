@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class CharController : MonoBehaviour
@@ -91,6 +91,17 @@ public class CharController : MonoBehaviour
     private PlatformEffector2D platform;
     public GameObject platformGo;
     private bool canFall = false;
+    public Image lifeBar;
+
+    public GameObject gearIcon;
+    public Text gearText;
+    public Camera GameCamera;
+    
+
+    [Header("PlayerValues")]
+    public int gearValue;
+    public float maxlife;
+    public float life;
 
 
     [Header("SKILLTESTING DEBUG")]
@@ -112,7 +123,8 @@ public class CharController : MonoBehaviour
 
     private void Start()
     {
-        
+        maxlife = 100;
+        life = maxlife;
     }
 
 
@@ -235,7 +247,8 @@ public class CharController : MonoBehaviour
         }
 
 
-
+        lifeBar.fillAmount = life / 100;
+        gearText.text = gearValue.ToString();
 
 
 
@@ -413,6 +426,7 @@ public class CharController : MonoBehaviour
             if (!evading)
             {
                 anim.SetBool("GetHit", true);
+                
             }
 
         }
@@ -428,11 +442,11 @@ public class CharController : MonoBehaviour
 
         if (righthit == true)
         {
-            knockback = -7;
+            knockback = -4;
         }
         else if (lefthit == true)
         {
-            knockback = 7;
+            knockback = 4;
         }
         GetComponent<SpriteRenderer>().material = invincibleFrame;
         isInvin = true;
@@ -440,7 +454,7 @@ public class CharController : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = new Vector2(knockback * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
         righthit = false;
         lefthit = false;
-
+        GetDamaged(10);
 
     }
 
@@ -481,6 +495,7 @@ public class CharController : MonoBehaviour
         foreach( GameObject enemy in glove.GetComponent<GloveHit>().collisionObj)
         {
             enemy.GetComponent<EnemyController>().getDamaged(glovedamage);
+            GameCamera.GetComponent<CameraControl>().Shake(0.15f, 3, 7);
         }
     }
 
@@ -489,6 +504,7 @@ public class CharController : MonoBehaviour
         foreach (GameObject enemy in staff.GetComponent<StaffHit>().collisionObj)
         {
             enemy.GetComponent<EnemyController>().getDamaged(staffdamage);
+            GameCamera.GetComponent<CameraControl>().Shake(0.15f, 3, 7);
         }
     }
 
@@ -500,7 +516,9 @@ public class CharController : MonoBehaviour
         if (!facingRight)
         {
             bul.GetComponent<BulletMove>().maxSpeed = -3;
+
         }
+        GameCamera.GetComponent<CameraControl>().Shake(0.15f, 3, 7);
     }
 
     IEnumerator PlatformHandler()
@@ -515,6 +533,24 @@ public class CharController : MonoBehaviour
     {
         enabledSkills.Add(TestSkill);
         TestSkill.GetSkill(this);
+    }
+
+    public void GetDamaged(int value)
+    {
+        life -= value;
+    }
+
+    public void AddGears(int value)
+    {
+        gearValue += value;
+        StartCoroutine(ShowGears());
+    }
+
+    IEnumerator ShowGears()
+    {
+        gearIcon.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        gearIcon.SetActive(false);
     }
 
     

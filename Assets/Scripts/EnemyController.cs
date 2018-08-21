@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour {
         //DESTROY ENEMY
         if(life <= 0)
         {
+            this.gameObject.GetComponent<GearsDropController>().DropGears();
             Destroy(this.gameObject);
         }
 	}
