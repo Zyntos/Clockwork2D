@@ -241,6 +241,10 @@ public class CharController : MonoBehaviour
             Attack(2);
         }
 
+
+
+
+
         if (Input.GetKeyDown(KeyCode.S) && canFall == true)
         {
             StartCoroutine(PlatformHandler());
@@ -263,7 +267,7 @@ public class CharController : MonoBehaviour
     private void Attack(int button)
     {
         
-
+        
         if (buttonpresses.Count == 0 && staffCooldown && move == 0 && grounded)
         {
             
@@ -295,6 +299,11 @@ public class CharController : MonoBehaviour
             
             
             
+        }
+
+        if (button == 2 && !grounded)
+        {
+            anim.SetTrigger("JumpAttack");
         }
         
 
@@ -546,12 +555,30 @@ public class CharController : MonoBehaviour
         StartCoroutine(ShowGears());
     }
 
+    public void JumpAttackStart()
+    {
+        anim.SetBool("JumpAttacking", true);
+    }
+
+    public void JumpAttackStop()
+    {
+        foreach (GameObject enemy in staff.GetComponent<StaffHit>().collisionObj)
+        {
+            enemy.GetComponent<EnemyController>().getDamaged(staffdamage);
+            GameCamera.GetComponent<CameraControl>().Shake(0.15f, 3, 7);
+        }
+        anim.SetBool("JumpAttacking", false);
+        
+    }
+
     IEnumerator ShowGears()
     {
         gearIcon.SetActive(true);
         yield return new WaitForSeconds(3f);
         gearIcon.SetActive(false);
     }
+
+
 
     
 
