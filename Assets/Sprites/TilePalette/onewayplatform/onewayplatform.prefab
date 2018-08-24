@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4145279708921666}
   - component: {fileID: 2569400266485561948}
   m_Layer: 31
-  m_Name: onewayplatform
+  m_Name: OneWayPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
