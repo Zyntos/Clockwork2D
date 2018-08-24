@@ -11,6 +11,10 @@ public class CharController : MonoBehaviour
     public List<PlayerAttributes> Attributes = new List<PlayerAttributes>();
     public List<Skills> enabledSkills = new List<Skills>();
 
+    [Header("Player Masteries")]
+    public List<PlayerMasterys> Masteries = new List<PlayerMasterys>();
+    public List<Mastery> enabledMasteries = new List<Mastery>();
+
     //DAMAGE TYPES
     [Header ("DAMAGE TYPES")]
     public float glovedamage;
@@ -96,6 +100,10 @@ public class CharController : MonoBehaviour
     public GameObject gearIcon;
     public Text gearText;
     public Camera GameCamera;
+
+    public Image m1;
+    public Image m2;
+    public Image m3;
     
 
     [Header("PlayerValues")]
@@ -198,6 +206,29 @@ public class CharController : MonoBehaviour
                 staffdamage = Attributes[i].amount;
             }
         }
+
+        //Update Masteries
+     
+        if(enabledMasteries[0] != null)
+        {
+            m1.sprite = enabledMasteries[0].Icon;
+            m1.gameObject.SetActive(true);
+        }
+        if (enabledMasteries[1] != null)
+        {
+            m2.sprite = enabledMasteries[1].Icon;
+            m2.gameObject.SetActive(true);
+        }
+        if (enabledMasteries[2] != null)
+        {
+            m3.sprite = enabledMasteries[2].Icon;
+            m3.gameObject.SetActive(true);
+        }
+
+
+
+
+
 
         //JUMPING AND DOUBLEJUMPING
         if (Input.GetButtonDown("Jump") && !isInvin && !evading && anim.GetInteger("currentstate") == 0)
@@ -488,7 +519,7 @@ public class CharController : MonoBehaviour
 
     IEnumerator StaffAttackCooldown()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.8f);
         staffCooldown = true;
         anim.SetBool("Attack", false);
         Debug.Log("COOLDOWN");
@@ -542,6 +573,26 @@ public class CharController : MonoBehaviour
     {
         enabledSkills.Add(TestSkill);
         TestSkill.GetSkill(this);
+    }
+
+    public void AddMastery(Mastery mastery, GameObject go)
+    {
+        if (enabledMasteries[0] == null)
+        {
+            enabledMasteries[0] = mastery;
+        }
+        else if (enabledMasteries[1] == null)
+        {
+            enabledMasteries[1] = mastery;
+        }
+        else if (enabledMasteries[2] == null)
+        {
+            enabledMasteries[2] = mastery;
+        }
+
+        
+        mastery.GetSkill(this);
+        Destroy(go);
     }
 
     public void GetDamaged(int value)
