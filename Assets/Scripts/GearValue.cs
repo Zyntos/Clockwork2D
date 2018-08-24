@@ -21,6 +21,7 @@ public class GearValue : MonoBehaviour {
     {
         if (((1 << collision.gameObject.layer) & whatIsPlayer) != 0)
         {
+            
             collision.gameObject.GetComponent<CharController>().AddGears(value);
             Destroy(this.gameObject);
         }

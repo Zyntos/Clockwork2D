@@ -14,3 +14,16 @@ public class PlayerAttributes
         this.amount = amount;
     }
 }
+
+[System.Serializable]
+public class PlayerMasterys
+{
+    public MasteryEnabler mastery;
+    public int amount;
+
+    public PlayerMasterys(MasteryEnabler mastery, int amount)
+    {
+        this.mastery = mastery;
+        this.amount = amount;
+    }
+}
