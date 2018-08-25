@@ -1,0 +1,834 @@
+fileFormatVersion: 2
+guid: 992c063aafc8877419e711bbb351a6dc
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Startroom
+    21300002: Transition5
+    21300004: Transition5Mirror
+    21300006: Transition32
+    21300008: Transition4
+    21300010: Transition1
+    21300012: MapSprites_Layer 0_6
+    21300014: MapSprites_Layer 0_7
+    21300016: MapSprites_Layer 0_8
+    21300018: 1x2!T
+    21300020: 1x2!TMirror
+    21300022: 1x2T
+    21300024: 1x2TMirror
+    21300026: MapSprites_Layer 0_13
+    21300028: MapSprites_Layer 0_14
+    21300030: MapSprites_Layer 0_15
+    21300032: 2x1Z
+    21300034: 2x1ZMirror
+    21300036: 2x1X
+    21300038: 2x1XMirror
+    21300040: MapSprites_Layer 0_20
+    21300042: MapSprites_Layer 0_21
+    21300044: MapSprites_Layer 0_22
+    21300046: 2x2X
+    21300048: 2x2XMirror
+    21300050: Bossroom
+    21300052: MapSprites_Layer 0_26
+    21300054: MapSprites_Layer 0_27
+    21300056: MapSprites_Layer 0_28
+    21300058: MapSprites_Layer 0_29
+    21300060: MapSprites_Layer 0_30
+    21300062: MapSprites_Layer 0_31
+    21300064: MapSprites_Layer 0_32
+    21300066: MapSprites_Layer 0_33
+    21300068: MapSprites_Layer 0_34
+    21300070: MapSprites_Layer 0_35
+    21300072: MapSprites_Layer 0_36
+    21300074: MapSprites_Layer 0_37
+    21300076: MapSprites_Layer 0_38
+    21300078: MapSprites_Layer 0_39
+    21300080: MapSprites_Layer 0_40
+    21300082: MapSprites_Layer 0_41
+    21300084: MapSprites_Layer 0_42
+    21300086: MapSprites_Layer 0_43
+    21300088: MapSprites_Layer 0_44
+    21300090: MapSprites_Layer 0_45
+    21300092: MapSprites_Layer 0_46
+    21300094: MapSprites_Layer 0_47
+    21300096: MapSprites_Layer 0_48
+    21300098: MapSprites_Layer 0_49
+    21300100: MapSprites_Layer 0_50
+    21300102: MapSprites_Layer 0_51
+    21300104: MapSprites_Layer 0_52
+    21300106: MapSprites_Layer 0_53
+    21300108: MapSprites_Layer 0_54
+    21300110: MapSprites_Layer 0_55
+    21300112: MapSprites_Layer 0_56
+    21300114: MapSprites_Layer 0_57
+    21300116: MapSprites_Layer 0_58
+    21300118: MapSprites_Layer 0_59
+    21300120: MapSprites_Layer 0_60
+    21300122: MapSprites_Layer 0_61
+    21300124: MapSprites_Layer 0_62
+    21300126: MapSprites_Layer 0_63
+    21300128: MapSprites_Layer 0_64
+    21300130: MapSprites_Layer 0_65
+    21300132: MapSprites_Layer 0_66
+    21300134: MapSprites_Layer 0_67
+    21300136: MapSprites_Layer 0_68
+    21300138: MapSprites_Layer 0_69
+    21300140: MapSprites_Layer 0_70
+    21300142: MapSprites_Layer 0_71
+    21300144: MapSprites_Layer 0_72
+    21300146: MapSprites_Layer 0_73
+    21300148: MapSprites_Layer 0_74
+    21300150: MapSprites_Layer 0_75
+    21300152: MapSprites_Layer 0_76
+    21300154: MapSprites_Layer 0_77
+    21300156: MapSprites_Layer 0_78
+    21300158: MapSprites_Layer 0_79
+    21300160: MapSprites_Layer 0_80
+    21300162: MapSprites_Layer 0_81
+    21300164: MapSprites_Layer 0_82
+    21300166: MapSprites_Layer 0_83
+    21300168: MapSprites_Layer 0_84
+    21300170: MapSprites_Layer 0_85
+    21300172: MapSprites_Layer 0_86
+    21300174: MapSprites_Layer 0_87
+    21300176: MapSprites_Layer 0_88
+    21300178: MapSprites_Layer 0_89
+    21300180: MapSprites_Layer 0_90
+    21300182: MapSprites_Layer 0_91
+    21300184: MapSprites_Layer 0_92
+    21300186: MapSprites_Layer 0_93
+    21300188: MapSprites_Layer 0_94
+    21300190: MapSprites_Layer 0_95
+    21300192: MapSprites_Layer 0_96
+    21300194: MapSprites_Layer 0_97
+    21300196: MapSprites_Layer 0_98
+    21300198: MapSprites_Layer 0_99
+    21300200: MapSprites_Layer 0_100
+    21300202: MapSprites_Layer 0_101
+    21300204: MapSprites_Layer 0_102
+    21300206: MapSprites_Layer 0_103
+    21300208: MapSprites_Layer 0_104
+    21300210: MapSprites_Layer 0_105
+    21300212: MapSprites_Layer 0_106
+    21300214: MapSprites_Layer 0_107
+    21300216: MapSprites_Layer 0_108
+    21300218: MapSprites_Layer 0_109
+    21300220: MapSprites_Layer 0_110
+    21300222: MapSprites_Layer 0_111
+    21300224: MapSprites_Layer 0_112
+    21300226: MapSprites_Layer 0_113
+    21300228: MapSprites_Layer 0_114
+    21300230: MapSprites_Layer 0_115
+    21300232: MapSprites_Layer 0_116
+    21300234: MapSprites_Layer 0_117
+    21300236: MapSprites_Layer 0_118
+    21300238: MapSprites_Layer 0_119
+    21300240: MapSprites_Layer 0_120
+    21300242: MapSprites_Layer 0_121
+    21300244: MapSprites_Layer 0_122
+    21300246: MapSprites_Layer 0_123
+    21300248: MapSprites_Layer 0_124
+    21300250: MapSprites_Layer 0_125
+    21300252: MapSprites_Layer 0_126
+    21300254: MapSprites_Layer 0_127
+    21300256: MapSprites_Layer 0_128
+    21300258: MapSprites_Layer 0_129
+    21300260: MapSprites_Layer 0_130
+    21300262: MapSprites_Layer 0_131
+    21300264: MapSprites_Layer 0_132
+    21300266: MapSprites_Layer 0_133
+    21300268: MapSprites_Layer 0_134
+    21300270: MapSprites_Layer 0_135
+    21300272: MapSprites_Layer 0_136
+    21300274: MapSprites_Layer 0_137
+    21300276: MapSprites_Layer 0_138
+    21300278: MapSprites_Layer 0_139
+    21300280: MapSprites_Layer 0_140
+    21300282: MapSprites_Layer 0_141
+    21300284: MapSprites_Layer 0_142
+    21300286: MapSprites_Layer 0_143
+    21300288: MapSprites_Layer 0_144
+    21300290: MapSprites_Layer 0_145
+    21300292: MapSprites_Layer 0_146
+    21300294: MapSprites_Layer 0_147
+    21300296: MapSprites_Layer 0_148
+    21300298: MapSprites_Layer 0_149
+    21300300: MapSprites_Layer 0_150
+    21300302: MapSprites_Layer 0_151
+    21300304: MapSprites_Layer 0_152
+    21300306: MapSprites_Layer 0_153
+    21300308: MapSprites_Layer 0_154
+    21300310: MapSprites_Layer 0_155
+    21300312: MapSprites_Layer 0_156
+    21300314: MapSprites_Layer 0_157
+    21300316: MapSprites_Layer 0_158
+    21300318: MapSprites_Layer 0_159
+    21300320: MapSprites_Layer 0_160
+    21300322: MapSprites_Layer 0_161
+    21300324: MapSprites_Layer 0_162
+    21300326: MapSprites_Layer 0_163
+    21300328: MapSprites_Layer 0_164
+    21300330: MapSprites_Layer 0_165
+    21300332: MapSprites_Layer 0_166
+    21300334: MapSprites_Layer 0_167
+    21300336: MapSprites_Layer 0_168
+    21300338: MapSprites_Layer 0_169
+    21300340: MapSprites_Layer 0_170
+    21300342: MapSprites_Layer 0_171
+    21300344: MapSprites_Layer 0_172
+    21300346: MapSprites_Layer 0_173
+    21300348: MapSprites_Layer 0_174
+    21300350: MapSprites_Layer 0_175
+    21300352: MapSprites_Layer 0_176
+    21300354: MapSprites_Layer 0_177
+    21300356: MapSprites_Layer 0_178
+    21300358: MapSprites_Layer 0_179
+    21300360: MapSprites_Layer 0_180
+    21300362: MapSprites_Layer 0_181
+    21300364: MapSprites_Layer 0_182
+    21300366: MapSprites_Layer 0_183
+    21300368: MapSprites_Layer 0_184
+    21300370: MapSprites_Layer 0_185
+    21300372: MapSprites_Layer 0_186
+    21300374: MapSprites_Layer 0_187
+    21300376: MapSprites_Layer 0_188
+    21300378: MapSprites_Layer 0_189
+    21300380: MapSprites_Layer 0_190
+    21300382: MapSprites_Layer 0_191
+    21300384: MapSprites_Layer 0_192
+    21300386: MapSprites_Layer 0_193
+    21300388: MapSprites_Layer 0_194
+    21300390: MapSprites_Layer 0_195
+    21300392: MapSprites_Layer 0_196
+    21300394: MapSprites_Layer 0_197
+    21300396: MapSprites_Layer 0_198
+    21300398: MapSprites_Layer 0_199
+    21300400: MapSprites_Layer 0_200
+    21300402: MapSprites_Layer 0_201
+    21300404: MapSprites_Layer 0_202
+    21300406: MapSprites_Layer 0_203
+    21300408: MapSprites_Layer 0_204
+    21300410: MapSprites_Layer 0_205
+  externalObjects: {}
+  serializedVersion: 6
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 44
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Startroom
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16325dd3342365b44bdba5d0c9de198d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transition5
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 830cf7caa833de245a5e1a1a315e786b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transition5Mirror
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75eea90b76399d141a9b93785940c5b6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transition32
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02546e082aa0032439ff88b2a0a332bb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transition4
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45be97c87b598f648a22b0a6f8a62a55
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Transition1
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ef64e38452c3848a4af958eda67ce4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_6
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85f45626ed7c8e744a0bb10c2ef56a20
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_7
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 307183fbf9523c5468e729790a32e6b8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_8
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 396
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aae65f09dce0532409ea30856b83d0d6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1x2!T
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 101b4f0dca317f5428f6fcce1277898d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1x2!TMirror
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd8c82c5eaa98245a9e1f6b665e7090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1x2T
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f24837f94fe7c3749aa7eb3e48b082ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1x2TMirror
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09ba00ea072ea7446b561e37ecb6907e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_13
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58c5ef94efc436949a73343b50e9ce27
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_14
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66dc54bcb560f5e49842c41e727aebd8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_15
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 352
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f90f903d581d2944b13746853ac9294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x1Z
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eded5ce31017ebc4babb18770c5afd55
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x1ZMirror
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae575c9400c75945bb8f9d71c5e710a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x1X
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9736cb3ec7e7fc4f99a88dd66db471d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x1XMirror
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0990719b09d3eac40aeb6b8df55a4658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_20
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e7518ce2cd5ed142a2b72fa9a968b3b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_21
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b885ef0ed1635b4b9b095a433b7870a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapSprites_Layer 0_22
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 308
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f0ed962216b594db62c260c18b7430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2X
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 264
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 635d928abfd32754cb1e0b73fcc7877f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2XMirror
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 264
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a51130e69c37c642ab8cd484bcf8b12
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bossroom
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 220
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02e8046a9a65d3b45bf82c5f513cb53b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b5b7974ccba32b64bb0ca6fc0c35a173
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
