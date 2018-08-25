@@ -9,8 +9,7 @@ using Utility;
 [CreateAssetMenu(menuName = "ScriptableSingletons/GameSettings")]
 public class GameSettings : ScriptableObjectSingleton<GameSettings>
 {
-	[Header("Rooms")] public float TileSize;
-	public int RoomWidth;
+	[Header("Rooms")] public int RoomWidth;
 	public int RoomHeight;
 	[Range(0, 1)] public float BasicRoomChance;
 	[Range(0, 1)] public float TrapRoomChance;
@@ -19,6 +18,10 @@ public class GameSettings : ScriptableObjectSingleton<GameSettings>
 
 	[Header("LevelGen")] [Range(0, 1)]
 	public float LeaveEarlyChance;
+	public float WithOneNeighbourChance = 0.45f;
+	public float WithTwoNeighoursChance = 0.75f;
+	public float KeepBranchingChance = 0.4f;
+	public float KeepBranchingDecayRate = 0.1f;
 
 	protected override void OnCreate()
 	{
