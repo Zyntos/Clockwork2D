@@ -563,9 +563,9 @@ public class CharController : MonoBehaviour
 
     IEnumerator PlatformHandler()
     {
-        platform = platformGo.transform.GetChild(0).GetComponent<PlatformEffector2D>();
+        platform = platformGo.transform.GetComponent<PlatformEffector2D>();
         platform.rotationalOffset = 180f;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         platform.rotationalOffset = 0;
     }
 
