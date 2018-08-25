@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e656a56b8628e46b0fc02725428bf8, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  TileSize: 0
+  RoomWidth: 22
+  RoomHeight: 12
+  BasicRoomChance: 0.765
+  TrapRoomChance: 0.22
+  TreasureRoomChance: 0.069
+  TreasureChestChance: 0.182
+  LeaveEarlyChance: 0.148
