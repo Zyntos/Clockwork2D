@@ -11,43 +11,7 @@ namespace Level
 {
 	public class LevelManager : Singleton<LevelManager>
 	{
-		public CharController Character;
-
-		private List<Room> _rooms;
-
-		private void OnEnable()
-		{
-			Door.doorEntered += OnDoorEntered;
-		}
-
-		private void OnDisable()
-		{
-			Door.doorEntered -= OnDoorEntered;
-		}
-
-		protected override void Awake()
-		{
-			base.Awake();
-			Character.gameObject.SetActive(false);
-		}
-
-		private void Start()
-		{
-			_rooms = LevelGenerator.Instance.GenerateLevel();
-			OnDoorEntered(1, Vector2.right);
-			Character.gameObject.SetActive(true);
-		}
-
-		private void OnDoorEntered(int roomID, Vector2 from)
-		{
-			Room room = GetRoomByID(roomID);
-			Character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
-		}
-
-		private Room GetRoomByID(int id)
-		{
-			return _rooms.FirstOrDefault(room => room.OwnID == id);
-		}
+		#region Static Stuff
 
 		public static int GetIndexFromDirection(Vector2 vector)
 		{
@@ -70,7 +34,7 @@ namespace Level
 		{
 			Vector2 retVec;
 			switch (index)
-			{ 
+			{
 				case 0:
 					retVec = Vector2.up;
 					break;
@@ -90,5 +54,61 @@ namespace Level
 
 			return retVec;
 		}
+
+		#endregion
+
+		#region Serialize Fields
+
+		[SerializeField] private CharController _character;
+
+		#endregion
+
+		#region Private Fields
+
+		private List<Room> _rooms;
+
+		#endregion
+
+		#region Unity methods
+
+		private void OnEnable()
+		{
+			Door.doorEntered += OnDoorEntered;
+		}
+
+		private void OnDisable()
+		{
+			Door.doorEntered -= OnDoorEntered;
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
+			_character.gameObject.SetActive(false);
+		}
+
+		private void Start()
+		{
+			_rooms = LevelGenerator.Instance.GenerateLevel();
+			OnDoorEntered(0, Vector2.right);
+			_character.gameObject.SetActive(true);
+		}
+
+		#endregion
+
+		#region Private methods
+
+		private void OnDoorEntered(int roomID, Vector2 from)
+		{
+			Room room = GetRoomByID(roomID);
+			_character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
+		}
+
+		private Room GetRoomByID(int id)
+		{
+			return _rooms.FirstOrDefault(room => room.OwnID == id);
+		}
+
+		#endregion
 	}
 }

@@ -78,7 +78,7 @@ namespace ProcGen.Level
 		#endregion
 
 		#region Public methods
-		
+
 		public List<Room> GenerateLevel(bool withBoss = true)
 		{
 			if (_roomPresets.Length == 0)
@@ -172,7 +172,7 @@ namespace ProcGen.Level
 
 		private void DetermineBossRoom()
 		{
-			List<RoomData> pickList = _roomDatas.Where(data => (data.Neighbours[2] == -1) || (data.Neighbours[3] == -1)).ToList();
+			List<RoomData> pickList = _roomDatas.Where(data => ((data.Neighbours[2] == -1) || (data.Neighbours[3] == -1)) && (data.GridPosition.x != 0)).ToList();
 			RoomData roomToBranchFrom;
 			if (pickList.Count > 0)
 			{
@@ -381,10 +381,6 @@ namespace ProcGen.Level
 			public bool[] Doors;
 			public Vector2 GridPosition;
 			public int[] Neighbours;
-
-			#endregion
-
-			#region Private Fields
 
 			#endregion
 

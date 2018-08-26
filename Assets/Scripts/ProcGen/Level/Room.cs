@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Level;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -40,16 +39,15 @@ namespace ProcGen.Level
 		private Vector2 _gridPosition;
 		private bool[] _availableDoors;
 		private int[] _neighbourIDs;
-		private int _ownID;
 
 		#endregion
 
 		#region Properties
 
 		public Vector2 Dimensions => _preset.RoomDimension;
-		public int OwnID => _ownID;
 		public Door[] Doors => _preset.Doors;
 		public bool IsBossRoom => _preset.Type == RoomType.Boss;
+		public int OwnID { get; private set; }
 		public Vector2 UpperLeftCorner => _upperLeftCorner.position;
 
 		#endregion
@@ -68,12 +66,16 @@ namespace ProcGen.Level
 			_gridPosition = roomData.GridPosition;
 			_availableDoors = roomData.Doors;
 			_neighbourIDs = roomData.Neighbours;
-			_ownID = roomData.ID;
+			OwnID = roomData.ID;
 
 			LockUnavailableDoors();
 			InitializeDoors();
 			SpawnMonsters();
 		}
+
+		#endregion
+
+		#region Private methods
 
 		private void LockUnavailableDoors()
 		{
@@ -94,10 +96,6 @@ namespace ProcGen.Level
 					_preset.Doors[i].Init(_neighbourIDs[i], LevelManager.GetDirectionFromIndex(i));
 			}
 		}
-
-		#endregion
-
-		#region Private methods
 
 		private void SpawnMonsters()
 		{
