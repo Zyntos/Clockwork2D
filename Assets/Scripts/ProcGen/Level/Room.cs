@@ -1,10 +1,13 @@
-﻿using System;
+﻿// Kevin Hagen
+// 20.08.2018
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Level;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
-using Random = UnityEngine.Random;
 
 namespace ProcGen.Level
 {
@@ -25,7 +28,8 @@ namespace ProcGen.Level
 
 		#region Serialize Fields
 
-		[SerializeField, FormerlySerializedAs("_configuration")] private RoomPreset _preset;
+		[SerializeField] [FormerlySerializedAs("_configuration")]
+		private RoomPreset _preset;
 		[SerializeField] private Transform _upperLeftCorner;
 
 		#endregion
@@ -34,42 +38,61 @@ namespace ProcGen.Level
 
 		private RoomType _type;
 		private Vector2 _gridPosition;
+		private bool[] _availableDoors;
+		private int[] _neighbourIDs;
+		private int _ownID;
 
 		#endregion
 
 		#region Properties
 
-		public Vector2 UpperLeftCorner => _upperLeftCorner.position;
-		public int DoorAmount => _preset.Doors.Count(t => t);
 		public Vector2 Dimensions => _preset.RoomDimension;
-		public bool[] Doors => _preset.Doors;
+		public int OwnID => _ownID;
+		public Door[] Doors => _preset.Doors;
 		public bool IsBossRoom => _preset.Type == RoomType.Boss;
+		public Vector2 UpperLeftCorner => _upperLeftCorner.position;
 
 		#endregion
 
 		#region Public methods
 
-		public void Init(Vector2 position, bool pickRandomType = false)
+		public void Init(LevelGenerator.RoomData roomData, RoomType type)
 		{
-			_gridPosition = position;
-			if (pickRandomType)
-			{
-				_type = (RoomType) Random.Range(0, (int) RoomType.None);
-			}
-
-			if (_type == RoomType.None)
+			if (type == RoomType.None)
 			{
 				Log("Initializing a non-existing room. Check whether this is wanted.", LogType.Warning);
 				return;
 			}
 
+			_type = type;
+			_gridPosition = roomData.GridPosition;
+			_availableDoors = roomData.Doors;
+			_neighbourIDs = roomData.Neighbours;
+			_ownID = roomData.ID;
+
+			LockUnavailableDoors();
+			InitializeDoors();
 			SpawnMonsters();
 		}
 
-		public void InitWithType(RoomType type)
+		private void LockUnavailableDoors()
 		{
-			_type = type;
-			Init(Vector2.zero);
+			for (int i = 0; i < _availableDoors.Length; i++)
+			{
+				if (!_availableDoors[i] && _preset.Doors[i])
+				{
+					_preset.Doors[i].Lock();
+				}
+			}
+		}
+
+		private void InitializeDoors()
+		{
+			for (int i = 0; i < _preset.Doors.Length; i++)
+			{
+				if (_availableDoors[i] && _preset.Doors[i])
+					_preset.Doors[i].Init(_neighbourIDs[i], LevelManager.GetDirectionFromIndex(i));
+			}
 		}
 
 		#endregion
@@ -82,14 +105,14 @@ namespace ProcGen.Level
 
 		#endregion
 
-		#region Nested type: RoomConfiguration
+		#region Nested type: RoomPreset
 
 		[Serializable]
 		public struct RoomPreset
 		{
 			#region Public Fields
 
-			[Tooltip("Up/Down/Left/Right")] public bool[] Doors;
+			[Tooltip("Up/Down/Left/Right")] public Door[] Doors;
 			public int MaxMonsters;
 			public List<EnemyController> PossibleEnemiesList;
 			public Vector2 RoomDimension;
