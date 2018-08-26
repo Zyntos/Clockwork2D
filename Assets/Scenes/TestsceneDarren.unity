@@ -1051,10 +1051,11 @@ MonoBehaviour:
   m1: {fileID: 2111945968}
   m2: {fileID: 1564863573}
   m3: {fileID: 2118062125}
-  mtext: {fileID: 0}
-  mtext1: {fileID: 0}
-  mtext2: {fileID: 0}
-  mtext3: {fileID: 0}
+  mtext: {fileID: 1280383264}
+  mtext1: {fileID: 839141617}
+  mtext2: {fileID: 520561680}
+  mtext3: {fileID: 1737891570}
+  goTemp: {fileID: 0}
   gearValue: 0
   maxlife: 0
   life: 0
@@ -2391,7 +2392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6501622169c44bd428e9b21f54601a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 1628877206408312, guid: 8478f91235c9592479c1a81e794a9ad7, type: 2}
 --- !u!4 &1645912305
 Transform:
   m_ObjectHideFlags: 0
