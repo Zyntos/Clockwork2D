@@ -104,6 +104,13 @@ public class CharController : MonoBehaviour
     public Image m1;
     public Image m2;
     public Image m3;
+
+    public Text mtext;
+    public Text mtext1;
+    public Text mtext2;
+    public Text mtext3;
+
+    public GameObject goTemp;
     
 
     [Header("PlayerValues")]
@@ -577,6 +584,8 @@ public class CharController : MonoBehaviour
 
     public void AddMastery(Mastery mastery, GameObject go)
     {
+
+        goTemp = go;
         if (enabledMasteries[0] == null)
         {
             enabledMasteries[0] = mastery;
@@ -589,12 +598,69 @@ public class CharController : MonoBehaviour
         {
             enabledMasteries[2] = mastery;
         }
+        else
+        {
+            StartCoroutine(WaitIE(mastery));
+        }
+           
 
         
-        mastery.GetSkill(this);
-        Destroy(go);
+        
+
+       
     }
 
+    IEnumerator WaitIE(Mastery mastery)
+    {
+        yield return new WaitForSeconds(1);
+        Time.timeScale = 0;
+        mtext.gameObject.SetActive(true);
+        mtext1.gameObject.SetActive(true);
+        mtext2.gameObject.SetActive(true);
+        mtext3.gameObject.SetActive(true);
+
+
+        yield return WaitForInput(mastery);
+    }
+    IEnumerator WaitForInput(Mastery mastery)
+    {
+        bool done = false;
+        while (!done)
+        {
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                enabledMasteries[0].LoseSkill(this);
+                enabledMasteries[0] = mastery;
+                done = true; // breaks the loop
+            }
+            if (Input.GetKey(KeyCode.Alpha2))
+            {
+                enabledMasteries[1].LoseSkill(this);
+                enabledMasteries[1] = mastery;
+                done = true;
+            }
+            if (Input.GetKey(KeyCode.Alpha3))
+            {
+                enabledMasteries[2].LoseSkill(this);
+                enabledMasteries[2] = mastery;
+                done = true;
+            }
+
+
+            yield return null;
+
+        }
+
+        Time.timeScale = 1;
+        mtext.gameObject.SetActive(false);
+        mtext1.gameObject.SetActive(false);
+        mtext2.gameObject.SetActive(false);
+        mtext3.gameObject.SetActive(false);
+
+        mastery.GetSkill(this);
+        Destroy(goTemp.transform.parent.gameObject);
+        goTemp = null;
+    }
     public void GetDamaged(int value)
     {
         life -= value;
