@@ -29,6 +29,7 @@ public class CharController : MonoBehaviour
     //MASTERIES
     [Header("MASTERIES")]
     public bool doublejumpEnabled = false;
+    public bool gearheal = false;
     public int maxQuickHits = 3;
 
 
@@ -109,6 +110,10 @@ public class CharController : MonoBehaviour
     public Text mtext1;
     public Text mtext2;
     public Text mtext3;
+    public GameObject e;
+
+    public Image masteryPreview;
+    public Image masteryPicturePreview;
 
     public GameObject goTemp;
     
@@ -410,6 +415,8 @@ public class CharController : MonoBehaviour
         Vector3 theScale = GetComponent<Transform>().localScale;
         theScale.x *= -1;
         GetComponent<Transform>().localScale = theScale;
+       
+        
     }
 
 
@@ -589,17 +596,25 @@ public class CharController : MonoBehaviour
         if (enabledMasteries[0] == null)
         {
             enabledMasteries[0] = mastery;
+            mastery.GetSkill(this);
+            Destroy(goTemp.transform.parent.gameObject);
         }
         else if (enabledMasteries[1] == null)
+
         {
             enabledMasteries[1] = mastery;
+            mastery.GetSkill(this);
+            Destroy(goTemp.transform.parent.gameObject);
         }
         else if (enabledMasteries[2] == null)
         {
             enabledMasteries[2] = mastery;
+            mastery.GetSkill(this);
+            Destroy(goTemp.transform.parent.gameObject);
         }
         else
         {
+            go.GetComponent<AddMastery>().clicked = true;
             StartCoroutine(WaitIE(mastery));
         }
            
@@ -612,7 +627,7 @@ public class CharController : MonoBehaviour
 
     IEnumerator WaitIE(Mastery mastery)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         Time.timeScale = 0;
         mtext.gameObject.SetActive(true);
         mtext1.gameObject.SetActive(true);
@@ -670,6 +685,10 @@ public class CharController : MonoBehaviour
     {
         gearValue += value;
         StartCoroutine(ShowGears());
+        if (gearheal)
+        {
+            life += 10;
+        }
     }
 
     public void JumpAttackStart()
@@ -686,6 +705,17 @@ public class CharController : MonoBehaviour
         }
         anim.SetBool("JumpAttacking", false);
         
+    }
+
+    public void ShowMastery(Mastery mastery)
+    {
+        masteryPreview.gameObject.SetActive(true);
+        masteryPicturePreview.sprite = mastery.Icon;
+    }
+
+    public void hideMastery()
+    {
+        masteryPreview.gameObject.SetActive(false);
     }
 
     IEnumerator ShowGears()

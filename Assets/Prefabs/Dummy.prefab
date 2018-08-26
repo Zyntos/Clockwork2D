@@ -81,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gear: {fileID: 1583352855275280, guid: fb902bf69a6340a4186b7e752dabaa4a, type: 2}
   mastery1: {fileID: 1116586907153748, guid: eb39d26a9c736144ba8adbf8c5a26e8d, type: 2}
-  mastery2: {fileID: 0}
+  mastery2: {fileID: 1937001615113236, guid: a3a20b39039c8034e814d4d4c42fcee4, type: 2}
 --- !u!114 &114640149953702246
 MonoBehaviour:
   m_ObjectHideFlags: 1

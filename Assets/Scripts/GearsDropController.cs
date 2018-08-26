@@ -21,8 +21,12 @@ public class GearsDropController : MonoBehaviour {
     {
         GameObject gears = Instantiate(gear, this.gameObject.transform.position, Quaternion.identity);
         gears.GetComponent<GearValue>().value = Random.Range(1, 6);
-        int masteryDrop = Random.Range(1, 6);
-        if(masteryDrop > 3)
+        int masteryDrop = Random.Range(1, 11);
+        if(masteryDrop > 8)
+        {
+            GameObject mastery = Instantiate(mastery2, this.gameObject.transform.position, Quaternion.identity);
+        }
+        else if (masteryDrop > 6)
         {
             GameObject mastery = Instantiate(mastery1, this.gameObject.transform.position, Quaternion.identity);
         } 

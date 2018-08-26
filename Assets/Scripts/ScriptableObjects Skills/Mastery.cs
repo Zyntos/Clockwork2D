@@ -18,6 +18,10 @@ public class Mastery : ScriptableObject
         {
             player.doublejumpEnabled = true;
         }
+       if(AffectedMastery == "GearHeal")
+        {
+            player.gearheal = true;
+        }
     }
 
     public void LoseSkill(CharController player)
@@ -26,6 +30,10 @@ public class Mastery : ScriptableObject
         {
             player.doublejumpEnabled = false;
             player.secondjump = false;
+        }
+        if (AffectedMastery == "GearHeal")
+        {
+            player.gearheal = false;
         }
     }
 
