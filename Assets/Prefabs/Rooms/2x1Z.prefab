@@ -1002,7 +1002,7 @@ CompositeCollider2D:
       - {x: -5, y: -2.6875}
       - {x: -4.25, y: -2.9375}
       - {x: -4.125, y: -2.9375}
-  m_VertexDistance: 0.33
+  m_VertexDistance: 0.0005
 --- !u!114 &114073012196999016
 MonoBehaviour:
   m_ObjectHideFlags: 1

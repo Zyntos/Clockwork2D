@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 8195094280176769852}
   - component: {fileID: 3664157345576935414}
   - component: {fileID: 2113883504380723758}
-  - component: {fileID: 114187495914893480}
   m_Layer: 0
   m_Name: 2x2XMirror Ladder
   m_TagString: Untagged
@@ -1115,18 +1114,6 @@ CompositeCollider2D:
       - {x: 8.4375, y: -3.9375}
       - {x: 8.875, y: -3.9375}
   m_VertexDistance: 0.68
---- !u!114 &114187495914893480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1115271384067960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7369f8b2776984699fa03b4e90394d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 6
 --- !u!114 &114321755519142430
 MonoBehaviour:
   m_ObjectHideFlags: 1
