@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb9f23181902a8a459ce8299ee116ad9, type: 3}
-  m_Name: Sprungstiefel
+  m_Name: Schrottverdoppler
   m_EditorClassIdentifier: 
-  Description: "Erm\xF6glicht einen Doppelsprung."
-  Icon: {fileID: 21300040, guid: 6ce3436d71b3fb643b6a3c77fbb5ab1e, type: 3}
-  AffectedMastery: DoubleJump
+  Description: Verdoppelt erhaltenen Schrott.
+  Icon: {fileID: 21300010, guid: ef4052b3d5d3d7940b4ba4e90f00268f, type: 3}
+  AffectedMastery: MoreGears

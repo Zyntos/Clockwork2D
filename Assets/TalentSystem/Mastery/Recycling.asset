@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9f23181902a8a459ce8299ee116ad9, type: 3}
   m_Name: Recycling
   m_EditorClassIdentifier: 
-  Description: "Erh\xE4lt Leben durch Gears."
+  Description: "Erh\xE4lt Leben durch Schrott."
   Icon: {fileID: 21300046, guid: ef4052b3d5d3d7940b4ba4e90f00268f, type: 3}
   AffectedMastery: GearHeal
