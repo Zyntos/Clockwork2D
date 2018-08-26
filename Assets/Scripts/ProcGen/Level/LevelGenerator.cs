@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Level;
 using UnityEngine;
 using Utility;
 using Random = UnityEngine.Random;
@@ -74,22 +75,16 @@ namespace ProcGen.Level
 			_targetRoomAmount = Random.Range(_minimumRoomAmount, _maximumRoomAmount);
 		}
 
-		private void Start()
-		{
-			Initialize();
-		}
-
 		#endregion
 
 		#region Public methods
-
-		//TODO Call by game manager, when the game starts
-		public void Initialize(bool withBoss = true)
+		
+		public List<Room> GenerateLevel(bool withBoss = true)
 		{
 			if (_roomPresets.Length == 0)
 			{
 				Log("_roomPresets are empty. Please set up!", LogType.Error);
-				return;
+				return null;
 			}
 
 			do
@@ -97,7 +92,7 @@ namespace ProcGen.Level
 				GenerateBasicLayout();
 			} while (_roomDatas.Count == 0);
 
-			UpdateNeighboursAll();
+			UpdateAllNeighbours();
 			GenerateAdditionalRooms();
 
 			if (withBoss)
@@ -106,6 +101,8 @@ namespace ProcGen.Level
 			}
 
 			CreateRoomInstances();
+
+			return _roomDictionary.Values.ToList();
 		}
 
 		#endregion
@@ -161,11 +158,11 @@ namespace ProcGen.Level
 					if (_roomDatas.Contains(newRoom)) continue;
 
 					_roomDatas.Add(newRoom);
-					UpdateNeighboursSingle(newRoom);
+					UpdateSingleNeighbour(newRoom);
 					foreach (int neighbourID in newRoom.Neighbours)
 					{
 						if (neighbourID != -1)
-							UpdateNeighboursSingle(GetRoomDataForID(neighbourID));
+							UpdateSingleNeighbour(GetRoomDataForID(neighbourID));
 					}
 
 					keepBranchingChance -= GameSettings.Instance.KeepBranchingDecayRate;
@@ -175,19 +172,47 @@ namespace ProcGen.Level
 
 		private void DetermineBossRoom()
 		{
-			List<RoomData> pickList = _roomDatas.Where(data => data.Amount == 1).ToList();
-			RoomData roomData;
+			List<RoomData> pickList = _roomDatas.Where(data => (data.Neighbours[2] == -1) || (data.Neighbours[3] == -1)).ToList();
+			RoomData roomToBranchFrom;
 			if (pickList.Count > 0)
 			{
-				roomData = pickList[Random.Range(0, pickList.Count)];
+				roomToBranchFrom = pickList[Random.Range(0, pickList.Count)];
 			}
 			else
 			{
-				Log("Theres no room with only 1 neighbour, can't determine Boss room", LogType.Warning);
+				Log("No room without left/right neighbour found. Cant spawn Bossroom", LogType.Warning);
 				return;
 			}
 
 			List<Room> possibleRooms = _roomPresets.Where(room => room.IsBossRoom).ToList();
+
+			RoomData roomData = roomToBranchFrom.Copy();
+			if (!((roomToBranchFrom.Neighbours[2] == -1) && (roomToBranchFrom.Neighbours[3] == -1)))
+			{
+				if (roomToBranchFrom.Neighbours[2] != -1)
+				{
+					possibleRooms.RemoveAll(room => room.Doors[3]);
+				}
+				else if (roomToBranchFrom.Neighbours[3] != -1)
+				{
+					possibleRooms.RemoveAll(room => room.Doors[2]);
+				}
+
+				roomData.GridPosition.x = roomToBranchFrom.Neighbours[2] == -1 ? roomData.GridPosition.x - 1 : roomData.GridPosition.x + 1;
+			}
+			else
+			{
+				if (Random.value < 0.5f)
+				{
+					possibleRooms.RemoveAll(room => room.Doors[3]);
+					roomData.GridPosition.x++;
+				}
+				else
+				{
+					possibleRooms.RemoveAll(room => room.Doors[2]);
+					roomData.GridPosition.x--;
+				}
+			}
 
 			InstantiateRoom(roomData, possibleRooms, Room.RoomType.Boss);
 		}
@@ -219,7 +244,7 @@ namespace ProcGen.Level
 			_roomDictionary.Add(roomData, roomInstance);
 		}
 
-		private void UpdateNeighboursAll()
+		private void UpdateAllNeighbours()
 		{
 			foreach (RoomData roomData in _roomDatas)
 			{
@@ -228,7 +253,7 @@ namespace ProcGen.Level
 			}
 		}
 
-		private void UpdateNeighboursSingle(RoomData roomData)
+		private void UpdateSingleNeighbour(RoomData roomData)
 		{
 			roomData.Neighbours = GetNeighboursForPosition(roomData.GridPosition);
 			roomData.Doors = GetDoorsForRoomData(roomData);
@@ -314,7 +339,7 @@ namespace ProcGen.Level
 
 			for (int i = 0; i < neighbours.Length; i++)
 			{
-				Vector2 possibleNeighbour = gridPosition + GetDirectionFromIndex(i);
+				Vector2 possibleNeighbour = gridPosition + LevelManager.GetDirectionFromIndex(i);
 				RoomData neighbour = _roomDatas.FirstOrDefault(room => room.GridPosition == possibleNeighbour);
 				if (neighbour != null)
 				{
@@ -332,31 +357,6 @@ namespace ProcGen.Level
 		private RoomData GetRoomDataForID(int id)
 		{
 			return _roomDatas.FirstOrDefault(room => room.ID == id);
-		}
-
-		private Vector2 GetDirectionFromIndex(int index)
-		{
-			Vector2 retVec;
-			switch (index)
-			{
-				case 0:
-					retVec = Vector2.up;
-					break;
-				case 1:
-					retVec = Vector2.down;
-					break;
-				case 2:
-					retVec = Vector2.left;
-					break;
-				case 3:
-					retVec = Vector2.right;
-					break;
-				default:
-					retVec = default(Vector2);
-					break;
-			}
-
-			return retVec;
 		}
 
 		private bool LeaveEarly()

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Level;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -39,14 +40,15 @@ namespace ProcGen.Level
 		private Vector2 _gridPosition;
 		private bool[] _availableDoors;
 		private int[] _neighbourIDs;
+		private int _ownID;
 
 		#endregion
 
 		#region Properties
 
 		public Vector2 Dimensions => _preset.RoomDimension;
-		public int DoorAmount => _preset.Doors.Count(t => t);
-		public bool[] Doors => _preset.Doors;
+		public int OwnID => _ownID;
+		public Door[] Doors => _preset.Doors;
 		public bool IsBossRoom => _preset.Type == RoomType.Boss;
 		public Vector2 UpperLeftCorner => _upperLeftCorner.position;
 
@@ -66,8 +68,31 @@ namespace ProcGen.Level
 			_gridPosition = roomData.GridPosition;
 			_availableDoors = roomData.Doors;
 			_neighbourIDs = roomData.Neighbours;
+			_ownID = roomData.ID;
 
+			LockUnavailableDoors();
+			InitializeDoors();
 			SpawnMonsters();
+		}
+
+		private void LockUnavailableDoors()
+		{
+			for (int i = 0; i < _availableDoors.Length; i++)
+			{
+				if (!_availableDoors[i] && _preset.Doors[i])
+				{
+					_preset.Doors[i].Lock();
+				}
+			}
+		}
+
+		private void InitializeDoors()
+		{
+			for (int i = 0; i < _preset.Doors.Length; i++)
+			{
+				if (_availableDoors[i] && _preset.Doors[i])
+					_preset.Doors[i].Init(_neighbourIDs[i], LevelManager.GetDirectionFromIndex(i));
+			}
 		}
 
 		#endregion
@@ -87,7 +112,7 @@ namespace ProcGen.Level
 		{
 			#region Public Fields
 
-			[Tooltip("Up/Down/Left/Right")] public bool[] Doors;
+			[Tooltip("Up/Down/Left/Right")] public Door[] Doors;
 			public int MaxMonsters;
 			public List<EnemyController> PossibleEnemiesList;
 			public Vector2 RoomDimension;
