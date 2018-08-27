@@ -12,7 +12,7 @@ public class InspectorButtonsDebug : Editor
         CharController myScript = (CharController)target;
         if (GUILayout.Button("AddSkill"))
         {
-            myScript.AddSkill();
+           
         }
     }
     

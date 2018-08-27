@@ -186,6 +186,14 @@ public class CharController : MonoBehaviour
         {
             if (Input.GetAxis("Vertical") < 0 && anim.GetFloat("vSpeed") == 0)
             {
+                if (move > 0)
+                {
+                    move = 1;
+                }
+                else
+                {
+                    move = -1;
+                }
                 anim.SetBool("Evade", true);
                 evading = true;
 
@@ -196,6 +204,7 @@ public class CharController : MonoBehaviour
         //Stop EVADE if falling
         if (anim.GetFloat("vSpeed") != 0)
         {
+            move = 0;
             anim.SetBool("Evade", false);
             evading = false;
         }
@@ -222,6 +231,14 @@ public class CharController : MonoBehaviour
             if (Attributes[i].attribute.name == "StaffDamage")
             {
                 staffdamage = Attributes[i].amount;
+            }
+            if (Attributes[i].attribute.name == "ShootDamage")
+            {
+                shootdamage = Attributes[i].amount;
+            }
+            if (Attributes[i].attribute.name == "MaxLife")
+            {
+                maxlife = Attributes[i].amount;
             }
         }
 
@@ -611,10 +628,16 @@ public class CharController : MonoBehaviour
         platform.rotationalOffset = 0;
     }
 
-    public void AddSkill()
+    public void AddSkill(Skills skill)
     {
-        enabledSkills.Add(TestSkill);
-        TestSkill.GetSkill(this);
+        if(gearValue >= skill.GearsNeeded)
+        {
+            gearValue -= skill.GearsNeeded;
+            gearText.text = gearValue.ToString();
+            enabledSkills.Add(skill);
+            skill.GetSkill(this);
+        }
+        
     }
 
     public void AddMastery(Mastery mastery, GameObject go)
