@@ -20,7 +20,7 @@ public class CameraControl : MonoBehaviour
     private float _shakeIntensity, _shakeSpeed, _baseX, _baseY;
     private Vector3 _nextShakePosition;
 
-	private Transform _target;
+	[SerializeField] private Transform _target;
 	private Vector3 offset = new Vector3(0, 0, -15f);
 
 	void Start () 
@@ -31,7 +31,7 @@ public class CameraControl : MonoBehaviour
         _baseX = ShakeAxis.localPosition.x;
         _baseY = ShakeAxis.localPosition.y;
 
-		_target = GameObject.FindWithTag("Player").transform;
+		//_target = GameObject.FindWithTag("Player").transform;
 		MainAxis.position = _target.position + offset;
 	}
 

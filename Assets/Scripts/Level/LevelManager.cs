@@ -109,6 +109,7 @@ namespace Level
 		{
 			_rooms = LevelGenerator.Instance.GenerateLevel(_levelGrid);
 			MapDrawer.Instance.DrawpMap(_rooms);
+			Corners = StartRoom.Corners;
 		}
 
 		#endregion
