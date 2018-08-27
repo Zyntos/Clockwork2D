@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: "Erh\xF6ht maximales Leben."
   Icon: {fileID: 0}
-  GearsNeeded: 0
+  GearsNeeded: 5
   AffectedAttributes:
   - attribute: {fileID: 11400000, guid: 0da7f460cc928704bb446cf2ad33a996, type: 2}
     amount: 20

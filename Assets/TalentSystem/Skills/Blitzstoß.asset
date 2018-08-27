@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: "Erh\xF6ht den Schaden deines Stabs."
   Icon: {fileID: 0}
-  GearsNeeded: 0
+  GearsNeeded: 5
   AffectedAttributes:
   - attribute: {fileID: 11400000, guid: 0df96fa71df25494c8d03643677c0980, type: 2}
     amount: 5

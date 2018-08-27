@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: "Erh\xF6ht den Schaden der Kugeln."
   Icon: {fileID: 0}
-  GearsNeeded: 0
+  GearsNeeded: 5
   AffectedAttributes:
   - attribute: {fileID: 11400000, guid: 04878e75be140e442be3d6b70ed244b2, type: 2}
     amount: 5

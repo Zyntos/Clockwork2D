@@ -214,8 +214,8 @@ MonoBehaviour:
   t2: {fileID: 520561680}
   t3: {fileID: 1737891570}
   Player: {fileID: 658177284}
-  Panel: {fileID: 0}
-  gears: {fileID: 0}
+  Panel: {fileID: 1260799165}
+  gears: {fileID: 496286841}
   done2: 0
 --- !u!61 &163046845
 BoxCollider2D:
@@ -614,12 +614,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 163046843}
-        m_MethodName: 
+      - m_Target: {fileID: 163046844}
+        m_MethodName: done
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
