@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Level;
 
 public class CameraControl : MonoBehaviour 
 {
@@ -19,6 +20,8 @@ public class CameraControl : MonoBehaviour
     private float _shakeIntensity, _shakeSpeed, _baseX, _baseY;
     private Vector3 _nextShakePosition;
 
+	[SerializeField] private Transform _target;
+	private Vector3 offset = new Vector3(0, 0, -15f);
 
 	void Start () 
     {
@@ -27,9 +30,17 @@ public class CameraControl : MonoBehaviour
         // Set up base positions, these are used for shaking to determine where to return to after a shake.
         _baseX = ShakeAxis.localPosition.x;
         _baseY = ShakeAxis.localPosition.y;
+
+		//_target = GameObject.FindWithTag("Player").transform;
+		MainAxis.position = _target.position + offset;
 	}
-	
-	
+
+	private void LateUpdate()
+	{
+		MainAxis.position = _target.position + offset;
+		ClampCameraMovementToCurrentRoomBoundaries();
+	}
+
 	void Update () 
     {
         // Are we moving?
@@ -45,6 +56,8 @@ public class CameraControl : MonoBehaviour
                 IsMoving = false;
                 if(!_isShaking) enabled = false;
             }
+
+			ClampCameraMovementToCurrentRoomBoundaries();
         }
         // ...or are we shaking? (Could be both)
         if (_isShaking)
@@ -133,4 +146,11 @@ public class CameraControl : MonoBehaviour
             Random.Range(-_shakeIntensity, _shakeIntensity),
             ShakeAxis.localPosition.z);
     }
+
+	private void ClampCameraMovementToCurrentRoomBoundaries()
+	{
+		Transform[] corners = LevelManager.Instance.Corners;
+		Mathf.Clamp(MainAxis.position.x, corners[0].position.x, corners[2].position.x);
+		Mathf.Clamp(MainAxis.position.y, corners[1].position.y, corners[0].position.y);
+	}
 }

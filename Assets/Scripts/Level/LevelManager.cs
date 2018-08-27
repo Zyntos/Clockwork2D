@@ -11,43 +11,7 @@ namespace Level
 {
 	public class LevelManager : Singleton<LevelManager>
 	{
-		public CharController Character;
-
-		private List<Room> _rooms;
-
-		private void OnEnable()
-		{
-			Door.doorEntered += OnDoorEntered;
-		}
-
-		private void OnDisable()
-		{
-			Door.doorEntered -= OnDoorEntered;
-		}
-
-		protected override void Awake()
-		{
-			base.Awake();
-			Character.gameObject.SetActive(false);
-		}
-
-		private void Start()
-		{
-			_rooms = LevelGenerator.Instance.GenerateLevel();
-			OnDoorEntered(1, Vector2.right);
-			Character.gameObject.SetActive(true);
-		}
-
-		private void OnDoorEntered(int roomID, Vector2 from)
-		{
-			Room room = GetRoomByID(roomID);
-			Character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
-		}
-
-		private Room GetRoomByID(int id)
-		{
-			return _rooms.FirstOrDefault(room => room.OwnID == id);
-		}
+		#region Static Stuff
 
 		public static int GetIndexFromDirection(Vector2 vector)
 		{
@@ -70,7 +34,7 @@ namespace Level
 		{
 			Vector2 retVec;
 			switch (index)
-			{ 
+			{
 				case 0:
 					retVec = Vector2.up;
 					break;
@@ -90,5 +54,90 @@ namespace Level
 
 			return retVec;
 		}
+
+		#endregion
+
+		#region Serialize Fields
+
+		[SerializeField] private Vector3 _offScreenPosition = new Vector3(-40, 0, 0);
+		[SerializeField] private GameObject _startRoomPrefab;
+		[SerializeField] private CharController _character;
+		[SerializeField] private Grid _levelGrid;
+
+		#endregion
+
+		#region Private Fields
+
+		private List<Room> _rooms;
+
+		#endregion
+
+		#region Properties
+
+		public Grid LevelGrid => _levelGrid;
+		public int CurrentRoomID { get; private set; }
+		public StartingRoom StartRoom { get; private set; }
+		public Transform[] Corners { get; private set; }
+
+		#endregion
+
+		#region Unity methods
+
+		private void OnEnable()
+		{
+			Door.doorEntered += OnDoorEntered;
+		}
+
+		private void OnDisable()
+		{
+			Door.doorEntered -= OnDoorEntered;
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
+			_character.gameObject.SetActive(false);
+			CurrentRoomID = -1;
+
+			GameObject startRoomObj = Instantiate(_startRoomPrefab, _levelGrid.transform);
+			startRoomObj.transform.position = _offScreenPosition;
+			StartRoom = startRoomObj.GetComponent<StartingRoom>();
+			StartRoom.Setup();
+		}
+
+		private void Start()
+		{
+			_rooms = LevelGenerator.Instance.GenerateLevel(_levelGrid);
+			MapDrawer.Instance.DrawpMap(_rooms);
+			Corners = StartRoom.Corners;
+		}
+
+		#endregion
+
+		#region Private methods
+
+		private void OnDoorEntered(int roomID, Vector2 from)
+		{
+			CurrentRoomID = roomID;
+			//Entering Starting room
+			//TODO still need to set corners for starting room
+			if (roomID == -1)
+			{
+				_character.transform.position = StartRoom.DungeonEntry.transform.position + new Vector3(from.x, from.y, 0) * -3;
+				Corners = StartRoom.Corners;
+				return;
+			}
+
+			Room room = GetRoomByID(roomID);
+			_character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
+			Corners = room.Corners;
+		}
+
+		private Room GetRoomByID(int id)
+		{
+			return _rooms.FirstOrDefault(room => room.OwnID == id);
+		}
+
+		#endregion
 	}
 }
