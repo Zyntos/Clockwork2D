@@ -59,13 +59,24 @@ namespace Level
 
 		#region Serialize Fields
 
+		[SerializeField] private Vector3 _offScreenPosition = new Vector3(-40, 0, 0);
+		[SerializeField] private GameObject _startRoomPrefab;
 		[SerializeField] private CharController _character;
+		[SerializeField] private Grid _levelGrid;
 
 		#endregion
 
 		#region Private Fields
 
 		private List<Room> _rooms;
+
+		#endregion
+
+		#region Properties
+
+		public Grid LevelGrid => _levelGrid;
+		public int CurrentRoomID { get; private set; }
+		public StartingRoom StartRoom { get; private set; }
 
 		#endregion
 
@@ -85,13 +96,17 @@ namespace Level
 		{
 			base.Awake();
 			_character.gameObject.SetActive(false);
+			CurrentRoomID = -1;
 		}
 
 		private void Start()
 		{
-			_rooms = LevelGenerator.Instance.GenerateLevel();
-			OnDoorEntered(0, Vector2.right);
-			_character.gameObject.SetActive(true);
+			_rooms = LevelGenerator.Instance.GenerateLevel(_levelGrid);
+			MapDrawer.Instance.DrawpMap(_rooms);
+
+			GameObject startRoomObj = Instantiate(_startRoomPrefab, Instance.LevelGrid.transform);
+			startRoomObj.transform.position = _offScreenPosition;
+			StartRoom = startRoomObj.GetComponent<StartingRoom>();
 		}
 
 		#endregion
@@ -100,6 +115,12 @@ namespace Level
 
 		private void OnDoorEntered(int roomID, Vector2 from)
 		{
+			CurrentRoomID = roomID;
+			if (roomID == -1)
+			{
+				_character.transform.position = StartRoom.DungeonEntry.transform.position + new Vector3(from.x, from.y, 0) * -3;
+			}
+
 			Room room = GetRoomByID(roomID);
 			_character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
 		}

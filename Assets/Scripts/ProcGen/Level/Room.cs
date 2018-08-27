@@ -29,16 +29,16 @@ namespace ProcGen.Level
 
 		[SerializeField] [FormerlySerializedAs("_configuration")]
 		private RoomPreset _preset;
-		[SerializeField] private Transform _upperLeftCorner;
+		[SerializeField] private GameObject _cornersObj;
 
 		#endregion
 
 		#region Private Fields
 
-		private RoomType _type;
-		private Vector2 _gridPosition;
 		private bool[] _availableDoors;
 		private int[] _neighbourIDs;
+		private Transform[] _corners;
+		private RoomType _type;
 
 		#endregion
 
@@ -47,8 +47,10 @@ namespace ProcGen.Level
 		public Vector2 Dimensions => _preset.RoomDimension;
 		public Door[] Doors => _preset.Doors;
 		public bool IsBossRoom => _preset.Type == RoomType.Boss;
+		public Sprite MiniMapSprite => _preset.MinimapSprite;
+		public Vector2 UpperLeftCorner => _corners[0].position;
+		public Vector2 GridPosition { get; private set; }
 		public int OwnID { get; private set; }
-		public Vector2 UpperLeftCorner => _upperLeftCorner.position;
 
 		#endregion
 
@@ -63,10 +65,16 @@ namespace ProcGen.Level
 			}
 
 			_type = type;
-			_gridPosition = roomData.GridPosition;
+			GridPosition = roomData.GridPosition;
 			_availableDoors = roomData.Doors;
 			_neighbourIDs = roomData.Neighbours;
 			OwnID = roomData.ID;
+
+			_corners = new Transform[_cornersObj.transform.childCount];
+			for (int i = 0; i < _corners.Length; i++)
+			{
+				_corners[i] = _cornersObj.transform.GetChild(i);
+			}
 
 			LockUnavailableDoors();
 			InitializeDoors();
@@ -112,6 +120,7 @@ namespace ProcGen.Level
 
 			[Tooltip("Up/Down/Left/Right")] public Door[] Doors;
 			public int MaxMonsters;
+			public Sprite MinimapSprite;
 			public List<EnemyController> PossibleEnemiesList;
 			public Vector2 RoomDimension;
 			public RoomType Type;

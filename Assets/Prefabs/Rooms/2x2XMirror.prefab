@@ -1980,10 +1980,11 @@ MonoBehaviour:
     - {fileID: 114823716225004778}
     - {fileID: 114414062882394186}
     MaxMonsters: 0
+    MinimapSprite: {fileID: 21300048, guid: 992c063aafc8877419e711bbb351a6dc, type: 3}
     PossibleEnemiesList: []
     RoomDimension: {x: 2, y: 2}
     Type: 0
-  _upperLeftCorner: {fileID: 4694241700441274}
+  _corners: []
 --- !u!114 &114414062882394186
 MonoBehaviour:
   m_ObjectHideFlags: 1

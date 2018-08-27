@@ -629,8 +629,9 @@ public class CharController : MonoBehaviour
         gearIcon.SetActive(false);
     }
 
-
-
-    
-
+	//Set Health etc?
+	public void SpawnAt(Vector3 spawnPosition)
+	{
+		transform.position = spawnPosition;
+	}
 }

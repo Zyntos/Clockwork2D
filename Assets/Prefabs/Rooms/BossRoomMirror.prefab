@@ -497,10 +497,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 114390620537574210}
     MaxMonsters: 0
+    MinimapSprite: {fileID: 21300050, guid: 992c063aafc8877419e711bbb351a6dc, type: 3}
     PossibleEnemiesList: []
     RoomDimension: {x: 1.5, y: 1.5}
     Type: 3
-  _upperLeftCorner: {fileID: 4648302909930608}
+  _corners: []
 --- !u!212 &212080594245387874
 SpriteRenderer:
   m_ObjectHideFlags: 1

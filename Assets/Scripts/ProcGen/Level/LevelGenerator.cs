@@ -31,7 +31,6 @@ namespace ProcGen.Level
 
 		#region Serialize Fields
 
-		[SerializeField] private GameObject _level;
 		[SerializeField] [Tooltip("This number is going to be squared")]
 		private int _gridSize = 6;
 		[SerializeField] private float _minimumRoomMultiplicator = 0.5f;
@@ -43,6 +42,7 @@ namespace ProcGen.Level
 
 		#region Private Fields
 
+		private Grid _levelGrid;
 		private List<RoomData> _roomDatas;
 		private Dictionary<RoomData, Room> _roomDictionary;
 		private Vector2 _cellSize;
@@ -51,6 +51,8 @@ namespace ProcGen.Level
 		private int _targetRoomAmount;
 
 		#endregion
+
+		public Vector2 CellSize => _cellSize;
 
 		#region Unity methods
 
@@ -79,8 +81,9 @@ namespace ProcGen.Level
 
 		#region Public methods
 
-		public List<Room> GenerateLevel(bool withBoss = true)
+		public List<Room> GenerateLevel(Grid grid, bool withBoss = true)
 		{
+			_levelGrid = grid;
 			if (_roomPresets.Length == 0)
 			{
 				Log("_roomPresets are empty. Please set up!", LogType.Error);
@@ -223,6 +226,12 @@ namespace ProcGen.Level
 			{
 				if (_roomDictionary.ContainsKey(roomData)) continue;
 
+				//First Room must have a door on the left (because it links to the starting room)
+				if (roomData.ID == 0)
+				{
+					roomData.Doors[2] = true;
+				}
+
 				List<Room> possibleRooms = _roomPresets.Where(room =>
 				                                              {
 					                                              bool[] bs = roomData.Doors;
@@ -235,7 +244,7 @@ namespace ProcGen.Level
 
 		private void InstantiateRoom(RoomData roomData, List<Room> possibleRooms, Room.RoomType type = Room.RoomType.Basic)
 		{
-			Room roomInstance = Instantiate(possibleRooms[Random.Range(0, possibleRooms.Count)], _level.transform);
+			Room roomInstance = Instantiate(possibleRooms[Random.Range(0, possibleRooms.Count)], _levelGrid.transform);
 			Vector2 actualPosition = new Vector2(roomData.GridPosition.x * _cellSize.x * GameSettings.Instance.RoomWidth, roomData.GridPosition.y * _cellSize.y * GameSettings.Instance.RoomHeight);
 			actualPosition += -1 * roomInstance.UpperLeftCorner + new Vector2(roomData.GridPosition.x * _offsetBetweenRooms, roomData.GridPosition.y * _offsetBetweenRooms);
 			roomInstance.transform.position = actualPosition;
@@ -247,9 +256,8 @@ namespace ProcGen.Level
 		private void UpdateAllNeighbours()
 		{
 			foreach (RoomData roomData in _roomDatas)
-			{
-				roomData.Neighbours = GetNeighboursForPosition(roomData.GridPosition);
-				roomData.Doors = GetDoorsForRoomData(roomData);
+			{ 
+				UpdateSingleNeighbour(roomData);
 			}
 		}
 

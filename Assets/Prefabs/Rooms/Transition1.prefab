@@ -1037,10 +1037,11 @@ MonoBehaviour:
     - {fileID: 114935450578737082}
     - {fileID: 114187617793126786}
     MaxMonsters: 0
+    MinimapSprite: {fileID: 21300010, guid: 992c063aafc8877419e711bbb351a6dc, type: 3}
     PossibleEnemiesList: []
     RoomDimension: {x: 1, y: 1}
     Type: 0
-  _upperLeftCorner: {fileID: 4916662914145988}
+  _corners: []
 --- !u!114 &114935450578737082
 MonoBehaviour:
   m_ObjectHideFlags: 1

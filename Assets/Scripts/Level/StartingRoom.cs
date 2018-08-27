@@ -10,17 +10,22 @@ namespace Level
 	{
 		#region Serialize Fields
 
-		[SerializeField] private CharController _character;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Door _doorToFirstRoom;
 
 		#endregion
 
-		#region Unity methods
+		#region Properties
 
-		private void Start()
+		public Door DungeonEntry => _doorToFirstRoom;
+		public Vector3 SpawnPosition => _spawnPoint.position;
+
+		#endregion
+
+		#region Public methods
+
+		public void Setup()
 		{
-			_character.transform.position = _spawnPoint.position;
 			_doorToFirstRoom.Init(0, Vector2.right);
 		}
 

@@ -38,9 +38,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4145187002065338}
-  - component: {fileID: 114105895946812518}
   - component: {fileID: 50622883983345418}
   - component: {fileID: 66698802668873902}
+  - component: {fileID: 114339024763620194}
   m_Layer: 0
   m_Name: StartRoom
   m_TagString: Untagged
@@ -578,24 +578,6 @@ CompositeCollider2D:
       - {x: -9, y: -4}
       - {x: 13, y: -4}
   m_VertexDistance: 0.0005
---- !u!114 &114105895946812518
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1095536288233940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90932373de3d49945a5f6b97a27ae77b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _preset:
-    Doors: []
-    MaxMonsters: 0
-    PossibleEnemiesList: []
-    RoomDimension: {x: 0, y: 0}
-    Type: 0
-  _upperLeftCorner: {fileID: 0}
 --- !u!114 &114315412804729990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -607,6 +589,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079b0b5692b4c3147beac012b6bea8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114339024763620194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095536288233940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05795e1cad2ca5145b58b9852d30e5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnPoint: {fileID: 4025596698363612}
+  _doorToFirstRoom: {fileID: 114315412804729990}
 --- !u!114 &114989607308487598
 MonoBehaviour:
   m_ObjectHideFlags: 1
