@@ -12,6 +12,7 @@ namespace Level
 
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Door _doorToFirstRoom;
+		[SerializeField] private Transform[] _corners;
 
 		#endregion
 
@@ -19,6 +20,7 @@ namespace Level
 
 		public Door DungeonEntry => _doorToFirstRoom;
 		public Vector3 SpawnPosition => _spawnPoint.position;
+		public Transform[] Corners => _corners;
 
 		#endregion
 

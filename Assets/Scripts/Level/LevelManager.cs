@@ -77,6 +77,7 @@ namespace Level
 		public Grid LevelGrid => _levelGrid;
 		public int CurrentRoomID { get; private set; }
 		public StartingRoom StartRoom { get; private set; }
+		public Transform[] Corners { get; private set; }
 
 		#endregion
 
@@ -101,6 +102,7 @@ namespace Level
 			GameObject startRoomObj = Instantiate(_startRoomPrefab, _levelGrid.transform);
 			startRoomObj.transform.position = _offScreenPosition;
 			StartRoom = startRoomObj.GetComponent<StartingRoom>();
+			StartRoom.Setup();
 		}
 
 		private void Start()
@@ -116,13 +118,18 @@ namespace Level
 		private void OnDoorEntered(int roomID, Vector2 from)
 		{
 			CurrentRoomID = roomID;
+			//Entering Starting room
+			//TODO still need to set corners for starting room
 			if (roomID == -1)
 			{
 				_character.transform.position = StartRoom.DungeonEntry.transform.position + new Vector3(from.x, from.y, 0) * -3;
+				Corners = StartRoom.Corners;
+				return;
 			}
 
 			Room room = GetRoomByID(roomID);
 			_character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
+			Corners = room.Corners;
 		}
 
 		private Room GetRoomByID(int id)

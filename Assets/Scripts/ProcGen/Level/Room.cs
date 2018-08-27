@@ -48,6 +48,7 @@ namespace ProcGen.Level
 		public Door[] Doors => _preset.Doors;
 		public bool IsBossRoom => _preset.Type == RoomType.Boss;
 		public Sprite MiniMapSprite => _preset.MinimapSprite;
+		public Transform[] Corners => _corners;
 		public Vector2 UpperLeftCorner => _corners[0].position;
 		public Vector2 GridPosition { get; private set; }
 		public int OwnID { get; private set; }
