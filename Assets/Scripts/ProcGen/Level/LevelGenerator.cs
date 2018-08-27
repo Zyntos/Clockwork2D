@@ -245,10 +245,11 @@ namespace ProcGen.Level
 		private void InstantiateRoom(RoomData roomData, List<Room> possibleRooms, Room.RoomType type = Room.RoomType.Basic)
 		{
 			Room roomInstance = Instantiate(possibleRooms[Random.Range(0, possibleRooms.Count)], _levelGrid.transform);
+			roomInstance.Init(roomData, type);
+
 			Vector2 actualPosition = new Vector2(roomData.GridPosition.x * _cellSize.x * GameSettings.Instance.RoomWidth, roomData.GridPosition.y * _cellSize.y * GameSettings.Instance.RoomHeight);
 			actualPosition += -1 * roomInstance.UpperLeftCorner + new Vector2(roomData.GridPosition.x * _offsetBetweenRooms, roomData.GridPosition.y * _offsetBetweenRooms);
 			roomInstance.transform.position = actualPosition;
-			roomInstance.Init(roomData, type);
 
 			_roomDictionary.Add(roomData, roomInstance);
 		}

@@ -97,16 +97,16 @@ namespace Level
 			base.Awake();
 			_character.gameObject.SetActive(false);
 			CurrentRoomID = -1;
+
+			GameObject startRoomObj = Instantiate(_startRoomPrefab, _levelGrid.transform);
+			startRoomObj.transform.position = _offScreenPosition;
+			StartRoom = startRoomObj.GetComponent<StartingRoom>();
 		}
 
 		private void Start()
 		{
 			_rooms = LevelGenerator.Instance.GenerateLevel(_levelGrid);
 			MapDrawer.Instance.DrawpMap(_rooms);
-
-			GameObject startRoomObj = Instantiate(_startRoomPrefab, Instance.LevelGrid.transform);
-			startRoomObj.transform.position = _offScreenPosition;
-			StartRoom = startRoomObj.GetComponent<StartingRoom>();
 		}
 
 		#endregion
