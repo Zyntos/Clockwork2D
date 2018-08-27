@@ -158,7 +158,7 @@ namespace ProcGen.Level
 				while (Random.value < keepBranchingChance)
 				{
 					RoomData newRoom = FindFreeNeighbour(roomTobranchFrom);
-					if (_roomDatas.Contains(newRoom)) continue;
+					if (_roomDatas.Where(room => room.GridPosition.x == newRoom.GridPosition.x && room.GridPosition.y == newRoom.GridPosition.y).Any()) continue;
 
 					_roomDatas.Add(newRoom);
 					UpdateSingleNeighbour(newRoom);
@@ -283,7 +283,7 @@ namespace ProcGen.Level
 					newRoom.GridPosition.x += direction;
 				else
 					newRoom.GridPosition.y += direction;
-			} while ((_roomDatas.Contains(newRoom) || (newRoom.GridPosition.x > _gridSize) || (newRoom.GridPosition.y > _gridSize) || (newRoom.GridPosition.x < 0) || (newRoom.GridPosition.y < 0)) && (searchAttempts < MaximumSearchAttempts));
+			} while ((_roomDatas.Contains(newRoom) || (newRoom.GridPosition.x >= _gridSize) || (newRoom.GridPosition.y >= _gridSize) || (newRoom.GridPosition.x < 0) || (newRoom.GridPosition.y < 0)) && (searchAttempts < MaximumSearchAttempts));
 
 			return newRoom;
 		}

@@ -10,6 +10,9 @@ namespace Level
 {
 	public class MapDrawer : Singleton<MapDrawer>
 	{
+		private const int MapTileHeight = 5;
+		private const int MapTileWidth = 10;
+
 		#region Serialize Fields
 
 		[SerializeField] private GameObject _tilePrefab;
@@ -17,11 +20,10 @@ namespace Level
 		#endregion
 
 		#region Private Fields
-
-		private CharController _characterController;
+	
 		private List<SpriteRenderer> _renderers;
 		private Camera _minimapCamera;
-		private Vector2 cellSize;
+		private Vector3 _offset;
 
 		#endregion
 
@@ -40,19 +42,15 @@ namespace Level
 		protected override void Awake()
 		{
 			base.Awake();
-
-			_characterController = GameObject.FindWithTag("Player").GetComponent<CharController>();
-
+			
+			_renderers = new List<SpriteRenderer>();
+			_offset = new Vector3(0, 0, -10);
+			
 			_minimapCamera = GetComponentInChildren<Camera>();
 			_minimapCamera.clearFlags = CameraClearFlags.Depth;
 			_minimapCamera.orthographic = true;
 			_minimapCamera.depth = 1;
-			_minimapCamera.rect = new Rect(50,50, 350, 200);
-		}
-
-		private void LateUpdate()
-		{
-			transform.position = _characterController.transform.position;
+			_minimapCamera.rect = new Rect(0.1f,0.9f, 0.35f, 0.2f);
 		}
 
 		#endregion
@@ -64,19 +62,22 @@ namespace Level
 			foreach (Room room in rooms)
 			{
 				GameObject mapTile = Instantiate(_tilePrefab, transform);
-				cellSize = LevelGenerator.Instance.CellSize;
-				Vector2 actualPosition = new Vector2(room.GridPosition.x * cellSize.x, room.GridPosition.y * cellSize.y);
+				Vector2 cellSize = LevelGenerator.Instance.CellSize;
+				Vector2 actualPosition = new Vector2(room.GridPosition.x * cellSize.x * MapTileWidth, room.GridPosition.y * cellSize.y * MapTileHeight);
 
 				if (room.Dimensions.x < cellSize.x)
 					actualPosition.x++;
 				if (room.Dimensions.y < cellSize.y)
 					actualPosition.y--;
+				mapTile.transform.position = actualPosition;
 
 				SpriteRenderer sr = mapTile.GetComponent<SpriteRenderer>();
 				sr.sprite = room.MiniMapSprite;
 				sr.enabled = false;
 				_renderers.Add(sr);
 			}
+
+			_minimapCamera.transform.position = _renderers[0].transform.position;
 		}
 
 		#endregion
@@ -92,12 +93,20 @@ namespace Level
 		{
 			if (!_renderers[roomid].enabled)
 				UnlockRoom(roomid);
+
+			ShowRoom(roomid);
 		}
 
 		//TODO Maybe some fancy animation stuff?
 		private void UnlockRoom(int roomid)
 		{
 			_renderers[roomid].enabled = true;
+		}
+
+		private void ShowRoom(int index)
+		{
+			Vector3 targetPosition = _renderers[index].transform.position + _offset;
+			_minimapCamera.transform.position = Vector3.Lerp(_minimapCamera.transform.position, targetPosition, 0.3f);	
 		}
 
 		#endregion
