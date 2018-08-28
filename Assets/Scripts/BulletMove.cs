@@ -11,7 +11,7 @@ public class BulletMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        StartCoroutine(Destroythis());
 	}
 	
 	// Update is called once per frame
@@ -37,5 +37,11 @@ public class BulletMove : MonoBehaviour {
 
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator Destroythis()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(this.gameObject);
     }
 }
