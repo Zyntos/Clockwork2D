@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 
 public class CharController : MonoBehaviour
@@ -121,10 +123,11 @@ public class CharController : MonoBehaviour
     public Text masteryDescription;
 
     public GameObject goTemp;
-    
+    public List<GameObject> masteryList;
 
-    [Header("PlayerValues")]
     public int gearValue;
+    [Header("PlayerValues")]
+    
     public float maxlife;
     public float life;
 
@@ -140,6 +143,7 @@ public class CharController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         anim = GetComponent<Animator>();
         
 
@@ -261,6 +265,8 @@ public class CharController : MonoBehaviour
         }
 
 
+       
+
 
 
 
@@ -308,7 +314,11 @@ public class CharController : MonoBehaviour
         }
 
 
-
+        if(life <= 0)
+        {
+            life = maxlife;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
 
         if (Input.GetKeyDown(KeyCode.S) && canFall == true)
@@ -412,6 +422,8 @@ public class CharController : MonoBehaviour
 
 
     }
+
+   
 
     public void StartCountdown(float cd)
     {
@@ -780,6 +792,7 @@ public class CharController : MonoBehaviour
 
     IEnumerator ShowGears()
     {
+        
         gearIcon.SetActive(true);
         yield return new WaitForSeconds(3f);
         gearIcon.SetActive(false);

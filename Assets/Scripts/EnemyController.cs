@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour {
     public Material norm;
     public bool dead = false;
     public bool destroyed = false;
+    public List<GameObject> masteryList;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,11 @@ public class EnemyController : MonoBehaviour {
         //DESTROY ENEMY
         if(life <= 0 && !dead)
         {
+           
+            Instantiate(masteryList[1], this.gameObject.transform.position, Quaternion.identity);
             this.gameObject.GetComponent<GearsDropController>().DropGears();
+            
+
             Destroy(this.gameObject);
         }
 	}

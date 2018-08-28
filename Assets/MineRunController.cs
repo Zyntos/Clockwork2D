@@ -9,7 +9,7 @@ public class MineRunController : MonoBehaviour {
     public GameObject player;
     public GameObject parent;
     
-    public float MoveSpeed = 0.1f;
+    public float MoveSpeed = 0.0001f;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +38,7 @@ public class MineRunController : MonoBehaviour {
             if(anim.GetBool("run") == true)
             {
                 
-                parent.transform.position = Vector2.MoveTowards(transform.position, collision.transform.position, MoveSpeed);
+                parent.transform.position = Vector2.MoveTowards(transform.position, collision.transform.position, MoveSpeed / 10);
                 Debug.Log(transform.position.x);
                 Debug.Log(collision.transform.position.x);
                 if (transform.position.x < collision.transform.position.x)

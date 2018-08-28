@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 58504054461710030}
   - component: {fileID: 114046231573388404}
   - component: {fileID: 50818150004565202}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Glove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 50148192921278924}
   - component: {fileID: 61185086929458606}
   - component: {fileID: 114360869122680518}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4780124817608836}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BulletStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4049842147419668}
   - component: {fileID: 212524078701185024}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4927274746113966}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077646642128704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.69, y: 0.82, z: 0.22367938}
+  m_LocalPosition: {x: -172.46, y: -96.07, z: 0.22367938}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4927274746113966}
@@ -532,6 +532,7 @@ MonoBehaviour:
   SnapDistance: 0.05
   MainAxis: {fileID: 4337040507103914}
   ShakeAxis: {fileID: 4186771312743766}
+  _target: {fileID: 0}
 --- !u!114 &114360869122680518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,10 +575,14 @@ MonoBehaviour:
   - {fileID: 0}
   glovedamage: 0
   staffdamage: 0
+  shootdamage: 0
   maxSpeed: 7
   jumpForce: 700
   doublejumpEnabled: 0
   gearheal: 0
+  moregears: 0
+  focus: 0
+  staffheal: 0
   maxQuickHits: 3
   secondjump: 0
   jumped: 0
@@ -633,9 +638,13 @@ MonoBehaviour:
   mtext1: {fileID: 0}
   mtext2: {fileID: 0}
   mtext3: {fileID: 0}
+  e: {fileID: 0}
+  masteryPreview: {fileID: 0}
+  masteryPicturePreview: {fileID: 0}
+  masteryDescription: {fileID: 0}
   goTemp: {fileID: 0}
   gearValue: 0
-  maxlife: 0
+  maxlife: 100
   life: 0
   TestSkill: {fileID: 0}
 --- !u!124 &124596700844481958
@@ -679,7 +688,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300016, guid: 6ce3436d71b3fb643b6a3c77fbb5ab1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

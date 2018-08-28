@@ -86,8 +86,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531319402569512}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: -2.5, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.03, y: 0.45, z: 0.07092967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4078642899379134}
@@ -135,19 +135,19 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531319402569512}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_Mass: 50
+  m_LinearDrag: 50
+  m_AngularDrag: 50
+  m_GravityScale: 50
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!61 &61293398681725956
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -253,8 +253,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gear: {fileID: 1583352855275280, guid: fb902bf69a6340a4186b7e752dabaa4a, type: 2}
-  mastery1: []
-  mastery2: []
+  mastery1:
+  - {fileID: 1937001615113236, guid: a3a20b39039c8034e814d4d4c42fcee4, type: 2}
+  - {fileID: 1937001615113236, guid: a3a20b39039c8034e814d4d4c42fcee4, type: 2}
+  mastery2:
+  - {fileID: 1008977629919186, guid: a6f6ba4c811a8444eaed963d1ee42b99, type: 2}
+  - {fileID: 1992266507117452, guid: ae78798fde6fff345bcd8c8347589127, type: 2}
 --- !u!114 &114260338604271766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,7 +276,7 @@ MonoBehaviour:
   anim: {fileID: 95218906768713016}
   player: {fileID: 0}
   parent: {fileID: 1531319402569512}
-  MoveSpeed: 0.1
+  MoveSpeed: 0.005
 --- !u!114 &114663772347774006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,6 +312,7 @@ MonoBehaviour:
   norm: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   dead: 0
   destroyed: 0
+  masteryList: []
 --- !u!212 &212322703553533272
 SpriteRenderer:
   m_ObjectHideFlags: 1

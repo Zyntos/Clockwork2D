@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1392847899249314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.43, y: 0.45, z: 0.07092967}
+  m_LocalPosition: {x: -5.57, y: 0.45, z: 0.07092967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021933660478648}
@@ -135,19 +135,19 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1392847899249314}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_Mass: 50
+  m_LinearDrag: 50
+  m_AngularDrag: 50
+  m_GravityScale: 50
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!61 &61687196544346294
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -258,6 +258,9 @@ MonoBehaviour:
   anim: {fileID: 95397368717740050}
   onHit: {fileID: 2100000, guid: eef2a10814a021741bc9eabe69d53eb2, type: 2}
   norm: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  dead: 0
+  destroyed: 0
+  masteryList: []
 --- !u!114 &114406974692006394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,8 +273,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gear: {fileID: 1583352855275280, guid: fb902bf69a6340a4186b7e752dabaa4a, type: 2}
-  mastery1: []
-  mastery2: []
+  mastery1:
+  - {fileID: 1116586907153748, guid: eb39d26a9c736144ba8adbf8c5a26e8d, type: 2}
+  - {fileID: 1815004355493628, guid: 2af185c7cb2cb7a41a7b90c50f423f83, type: 2}
+  mastery2:
+  - {fileID: 1008977629919186, guid: a6f6ba4c811a8444eaed963d1ee42b99, type: 2}
+  - {fileID: 1008977629919186, guid: a6f6ba4c811a8444eaed963d1ee42b99, type: 2}
 --- !u!114 &114840130607250636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,7 +312,7 @@ MonoBehaviour:
   anim: {fileID: 95397368717740050}
   player: {fileID: 0}
   parent: {fileID: 1392847899249314}
-  MoveSpeed: 0.1
+  MoveSpeed: 0.005
 --- !u!212 &212880952387396422
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -340,7 +347,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300046, guid: f8da0a2adad8f4841b233a75ec7962f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -18,7 +18,7 @@ public class MineController : MonoBehaviour {
 	void Update () {
 		
 	}
-
+     
 
 
     private void OnTriggerExit2D(Collider2D collision)

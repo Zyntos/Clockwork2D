@@ -173,9 +173,12 @@ public class WorkshopUI : MonoBehaviour
         Time.timeScale = 0;
         Panel.SetActive(true);
         gears.SetActive(true);
+        
         while (!done2)
         {
+            gears.GetComponentInChildren<Text>().text = Player.GetComponent<CharController>().gearValue.ToString();
             yield return null;
+            
         }
 
         Time.timeScale = 1;
