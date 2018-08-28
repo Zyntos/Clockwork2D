@@ -133,7 +133,7 @@ public class GameManager : Singleton<GameManager>
 			case GameState.Start:
 				break;
 			case GameState.StartRoom:
-				_character.SpawnAt(LevelManager.Instance.StartRoom.SpawnPosition);
+				//_character.SpawnAt(LevelManager.Instance.StartRoom.SpawnPosition);
 				break;
 			case GameState.Dungeon:
 				break;
@@ -145,6 +145,13 @@ public class GameManager : Singleton<GameManager>
 				throw new ArgumentOutOfRangeException();
 		}
 	}
+
+
+
+    public void Spawn()
+    {
+        _character.SpawnAt(LevelManager.Instance.StartRoom.SpawnPosition);
+    }
 
 	#endregion
 }

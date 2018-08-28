@@ -470,7 +470,7 @@ public class CharController : MonoBehaviour
     {
 
 
-        if (((1 << collision.gameObject.layer) & whatisEnemy) != 0)
+        if (((1 << collision.gameObject.layer) & whatisEnemy) != 0 && collision.GetComponent<EnemyController>().enemyType != "mine")
         {
             Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
 

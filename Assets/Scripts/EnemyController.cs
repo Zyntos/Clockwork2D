@@ -6,10 +6,14 @@ public class EnemyController : MonoBehaviour {
 
     [Header("ENEMY VALUES")]
     public float maxlife = 100;
-    float life;
+    public float life;
+    public string enemyType;
+    public Animator anim;
 
     public Material onHit;
     public Material norm;
+    public bool dead = false;
+    public bool destroyed = false;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +24,7 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 		
         //DESTROY ENEMY
-        if(life <= 0)
+        if(life <= 0 && !dead)
         {
             this.gameObject.GetComponent<GearsDropController>().DropGears();
             Destroy(this.gameObject);
@@ -30,6 +34,7 @@ public class EnemyController : MonoBehaviour {
     //ENEMY GET DAMAGED
     public void getDamaged(float dmg)
     {
+        
         life -= dmg;
         GetComponent<SpriteRenderer>().material = onHit;
         StartCoroutine(MatChange());
@@ -39,6 +44,21 @@ public class EnemyController : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f);
         GetComponent<SpriteRenderer>().material = norm;
+    }
+
+    public void DestroyEnemyMine()
+    {
+        if (!destroyed)
+        {
+            destroyed = true;
+            
+        }
+        
+    }
+
+    public void RemoveTrigger()
+    {
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
 }

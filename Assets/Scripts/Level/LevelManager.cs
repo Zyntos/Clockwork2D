@@ -96,7 +96,7 @@ namespace Level
 		protected override void Awake()
 		{
 			base.Awake();
-			_character.gameObject.SetActive(false);
+			//_character.gameObject.SetActive(false);
 			CurrentRoomID = -1;
 
 			GameObject startRoomObj = Instantiate(_startRoomPrefab, _levelGrid.transform);
@@ -129,7 +129,7 @@ namespace Level
 			}
 
 			Room room = GetRoomByID(roomID);
-			_character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) * -3;
+			_character.transform.position = room.Doors[GetIndexFromDirection(from)].transform.position + new Vector3(from.x, from.y, 0) *-1;
 			Corners = room.Corners;
 		}
 
