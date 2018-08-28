@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb9f23181902a8a459ce8299ee116ad9, type: 3}
-  m_Name: Sprungstiefel
+  m_Name: Energietransfer
   m_EditorClassIdentifier: 
-  Description: "Erm\xF6glicht einen Doppelsprung."
-  Icon: {fileID: 21300040, guid: 6ce3436d71b3fb643b6a3c77fbb5ab1e, type: 3}
-  AffectedMastery: DoubleJump
+  Description: Stabangriffe heilen.
+  Icon: {fileID: 21300006, guid: e0812571293dcf3429b40b564060ad1c, type: 3}
+  AffectedMastery: energy

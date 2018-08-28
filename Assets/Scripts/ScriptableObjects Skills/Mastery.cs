@@ -22,6 +22,18 @@ public class Mastery : ScriptableObject
         {
             player.gearheal = true;
         }
+        if (AffectedMastery == "MoreGears")
+        {
+            player.moregears = true;
+        }
+        if (AffectedMastery == "focus")
+        {
+            player.focus = true;
+        }
+        if (AffectedMastery == "energy")
+        {
+            player.staffheal = true;
+        }
     }
 
     public void LoseSkill(CharController player)
@@ -34,6 +46,18 @@ public class Mastery : ScriptableObject
         if (AffectedMastery == "GearHeal")
         {
             player.gearheal = false;
+        }
+        if (AffectedMastery == "MoreGears")
+        {
+            player.moregears = false;
+        }
+        if (AffectedMastery == "focus")
+        {
+            player.moregears = false;
+        }
+        if (AffectedMastery == "energy")
+        {
+            player.staffheal = false;
         }
     }
 

@@ -19,6 +19,7 @@ public class CharController : MonoBehaviour
     [Header ("DAMAGE TYPES")]
     public float glovedamage;
     public float staffdamage;
+    public float shootdamage;
 
 
     //CHARACTER MOVEMENT VALUES
@@ -30,6 +31,9 @@ public class CharController : MonoBehaviour
     [Header("MASTERIES")]
     public bool doublejumpEnabled = false;
     public bool gearheal = false;
+    public bool moregears = false;
+    public bool focus = false;
+    public bool staffheal = false;
     public int maxQuickHits = 3;
 
 
@@ -114,6 +118,7 @@ public class CharController : MonoBehaviour
 
     public Image masteryPreview;
     public Image masteryPicturePreview;
+    public Text masteryDescription;
 
     public GameObject goTemp;
     
@@ -126,6 +131,7 @@ public class CharController : MonoBehaviour
 
     [Header("SKILLTESTING DEBUG")]
     public Skills TestSkill;
+    
 
 
 
@@ -180,6 +186,14 @@ public class CharController : MonoBehaviour
         {
             if (Input.GetAxis("Vertical") < 0 && anim.GetFloat("vSpeed") == 0)
             {
+                if (move > 0)
+                {
+                    move = 1;
+                }
+                else
+                {
+                    move = -1;
+                }
                 anim.SetBool("Evade", true);
                 evading = true;
 
@@ -190,6 +204,7 @@ public class CharController : MonoBehaviour
         //Stop EVADE if falling
         if (anim.GetFloat("vSpeed") != 0)
         {
+            move = 0;
             anim.SetBool("Evade", false);
             evading = false;
         }
@@ -216,6 +231,14 @@ public class CharController : MonoBehaviour
             if (Attributes[i].attribute.name == "StaffDamage")
             {
                 staffdamage = Attributes[i].amount;
+            }
+            if (Attributes[i].attribute.name == "ShootDamage")
+            {
+                shootdamage = Attributes[i].amount;
+            }
+            if (Attributes[i].attribute.name == "MaxLife")
+            {
+                maxlife = Attributes[i].amount;
             }
         }
 
@@ -546,27 +569,49 @@ public class CharController : MonoBehaviour
 
     void GloveDamaged()
     {
+        float gloved = glovedamage;
+        if (focus)
+        {
+            gloved *= 2; 
+        }
         foreach( GameObject enemy in glove.GetComponent<GloveHit>().collisionObj)
         {
-            enemy.GetComponent<EnemyController>().getDamaged(glovedamage);
+
+
+            
+            enemy.GetComponent<EnemyController>().getDamaged(gloved);
             GameCamera.GetComponent<CameraControl>().Shake(0.15f, 3, 7);
         }
     }
 
     void StaffDamaged()
     {
+        float staffd = staffdamage;
+        if (focus)
+        {
+            staffd *= 2;
+        }
+        if (staffheal)
+        {
+            life += 2;
+        }
         foreach (GameObject enemy in staff.GetComponent<StaffHit>().collisionObj)
         {
-            enemy.GetComponent<EnemyController>().getDamaged(staffdamage);
+            enemy.GetComponent<EnemyController>().getDamaged(staffd);
             GameCamera.GetComponent<CameraControl>().Shake(0.15f, 3, 7);
         }
     }
 
     void Shoot()
     {
-       
-        
+        float shootd = shootdamage;
+        if (focus)
+        {
+            shootd *= 2;
+        }
+
         GameObject bul = Instantiate(bullet, bulletStart.transform.position, Quaternion.identity);
+        bul.GetComponent<BulletMove>().bulletDamage = shootd;
         if (!facingRight)
         {
             bul.GetComponent<BulletMove>().maxSpeed = -3;
@@ -583,10 +628,16 @@ public class CharController : MonoBehaviour
         platform.rotationalOffset = 0;
     }
 
-    public void AddSkill()
+    public void AddSkill(Skills skill)
     {
-        enabledSkills.Add(TestSkill);
-        TestSkill.GetSkill(this);
+        if(gearValue >= skill.GearsNeeded)
+        {
+            gearValue -= skill.GearsNeeded;
+            gearText.text = gearValue.ToString();
+            enabledSkills.Add(skill);
+            skill.GetSkill(this);
+        }
+        
     }
 
     public void AddMastery(Mastery mastery, GameObject go)
@@ -678,11 +729,19 @@ public class CharController : MonoBehaviour
     }
     public void GetDamaged(int value)
     {
+        if (focus)
+        {
+            value *= 2;
+        }
         life -= value;
     }
 
     public void AddGears(int value)
     {
+        if (moregears)
+        {
+            value *= 2;
+        }
         gearValue += value;
         StartCoroutine(ShowGears());
         if (gearheal)
@@ -711,6 +770,7 @@ public class CharController : MonoBehaviour
     {
         masteryPreview.gameObject.SetActive(true);
         masteryPicturePreview.sprite = mastery.Icon;
+        masteryDescription.text = mastery.Description;
     }
 
     public void hideMastery()

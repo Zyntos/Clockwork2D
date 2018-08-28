@@ -5,8 +5,8 @@ using UnityEngine;
 public class GearsDropController : MonoBehaviour {
 
     public GameObject gear;
-    public GameObject mastery1;
-    public GameObject mastery2;
+    public List<GameObject> mastery1;
+    public List<GameObject> mastery2;
 	// Use this for initialization
 	void Start () {
 		
@@ -24,11 +24,18 @@ public class GearsDropController : MonoBehaviour {
         int masteryDrop = Random.Range(1, 11);
         if(masteryDrop > 8)
         {
-            GameObject mastery = Instantiate(mastery2, this.gameObject.transform.position, Quaternion.identity);
+            int masteryChoose = Random.Range(1, mastery1.Count + 1);
+            GameObject mastery = Instantiate(mastery2[masteryChoose-1], this.gameObject.transform.position, Quaternion.identity);
         }
-        else if (masteryDrop > 6)
+        else
         {
-            GameObject mastery = Instantiate(mastery1, this.gameObject.transform.position, Quaternion.identity);
+            masteryDrop = Random.Range(1, 11);
+            if(masteryDrop > 6)
+            {
+                int masteryChoose = Random.Range(1, mastery1.Count + 1);
+                GameObject mastery = Instantiate(mastery1[masteryChoose-1], this.gameObject.transform.position, Quaternion.identity);
+
+            }
         } 
     }
 

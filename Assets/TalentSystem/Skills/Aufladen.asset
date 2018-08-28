@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: "Erh\xF6ht den Schaden deines Handschuhs."
   Icon: {fileID: 0}
-  GearsNeeded: 0
+  GearsNeeded: 5
   AffectedAttributes:
   - attribute: {fileID: 11400000, guid: e10b1479dfe6dd74c8a4c3b857e491b5, type: 2}
     amount: 5
